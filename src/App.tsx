@@ -77,7 +77,7 @@ function App() {
 
       setPhase('results')
     } catch (err) {
-      setAnalyzeError(err instanceof Error ? err.message : 'Analysis failed')
+      setAnalyzeError(err instanceof Error ? err.message : 'Analysis failed. Please try again.')
       setPhase('preview')
     }
   }, [imageBase64, previewUrl])

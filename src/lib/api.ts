@@ -10,7 +10,7 @@ export async function analyzeFoodImage(base64: string): Promise<CalorieAnalysis>
   const data = (await res.json()) as { error?: string } & Partial<CalorieAnalysis>
 
   if (!res.ok) {
-    throw new Error(data.error ?? `Analysis failed (${res.status})`)
+    throw new Error(data.error ?? `Analysis failed (${res.status}). Please try again.`)
   }
 
   return data as CalorieAnalysis
