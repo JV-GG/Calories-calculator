@@ -118,8 +118,6 @@ function App() {
 
   return (
     <div className="app-root">
-      <div className="grain" aria-hidden="true" />
-
       {showHistory && (
         <HistoryView
           history={history}

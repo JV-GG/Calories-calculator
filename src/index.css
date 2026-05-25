@@ -1,47 +1,38 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Typography */
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
 
-  /* Primary - Deep Slate */
   --color-primary: #0F172A;
   --color-primary-hover: #1E293B;
   --color-primary-light: #334155;
 
-  /* Accent - Vibrant Blue */
   --color-accent: #2563EB;
   --color-accent-light: #3B82F6;
   --color-accent-dark: #1D4ED8;
 
-  /* Secondary - Emerald (Health) */
   --color-secondary: #059669;
   --color-secondary-light: #10B981;
   --color-secondary-dark: #047857;
 
-  /* Background */
   --color-bg: #FFFFFF;
   --color-bg-elevated: #FFFFFF;
   --color-bg-muted: #F8FAFC;
   --color-bg-subtle: #F1F5F9;
 
-  /* Foreground */
   --color-fg: #0F172A;
   --color-fg-muted: #475569;
   --color-fg-subtle: #94A3B8;
 
-  /* Functional */
   --color-success: #059669;
   --color-warning: #D97706;
   --color-error: #DC2626;
   --color-info: #0284C7;
 
-  /* Borders */
   --color-border: #E2E8F0;
   --color-border-strong: #CBD5E1;
 
-  /* Shadows */
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
   --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.12);
@@ -61,7 +52,7 @@ html, body, #root {
 
 body {
   font-family: var(--font-body);
-  background: var(--color-bg-muted);
+  background: var(--color-bg);
   color: var(--color-fg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -90,7 +81,7 @@ body {
   border: 0;
 }
 
-/* ── App Container - Mobile by default, adapts to desktop ── */
+/* ── App Container ── */
 .app-root {
   position: relative;
   height: 100%;
@@ -101,26 +92,33 @@ body {
   box-shadow: var(--shadow-xl);
 }
 
-/* Desktop Layout */
+/* Desktop: Centered card with gradient background */
 @media (min-width: 1024px) {
   body {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    min-height: 100vh;
   }
 
   .app-root {
-    max-width: 1200px;
+    max-width: 480px;
     height: auto;
-    min-height: 700px;
+    min-height: 85vh;
     max-height: 900px;
     border-radius: 24px;
     overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Even larger screens */
+@media (min-width: 1440px) {
+  .app-root {
+    max-width: 520px;
+    min-height: 80vh;
   }
 }
 
@@ -180,12 +178,6 @@ body {
   overflow: hidden;
 }
 
-@media (min-width: 1024px) {
-  .camera-shell {
-    border-radius: 24px 0 0 24px;
-  }
-}
-
 .camera-shell::before {
   content: '';
   position: absolute;
@@ -210,6 +202,14 @@ body {
   animation: fade-up 0.4s ease-out;
 }
 
+.camera-header {
+  padding: 1.25rem 1.5rem;
+}
+
+.camera-header-desktop {
+  padding: 2rem 2.5rem;
+}
+
 @media (min-width: 1024px) {
   .camera-header {
     padding: 2rem 2.5rem;
@@ -231,6 +231,7 @@ body {
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 @media (min-width: 1024px) {
@@ -239,10 +240,10 @@ body {
     height: 56px;
     border-radius: 16px;
   }
+}
 
-  .brand-logo:hover {
-    transform: scale(1.05);
-  }
+.brand-logo:hover {
+  transform: scale(1.05);
 }
 
 .brand-logo:active {
@@ -389,7 +390,6 @@ body {
   }
 }
 
-/* Viewfinder overlay */
 .viewfinder-overlay {
   position: absolute;
   inset: 0;
@@ -547,7 +547,6 @@ body {
   }
 }
 
-/* Snap Button */
 .snap-btn {
   position: relative;
   width: 76px;
@@ -610,12 +609,6 @@ body {
   height: 100%;
   background: var(--color-bg);
   animation: fade-in 0.25s ease;
-}
-
-@media (min-width: 1024px) {
-  .preview-shell {
-    border-radius: 0 24px 24px 0;
-  }
 }
 
 .preview-header {
@@ -699,6 +692,12 @@ body {
 
 .preview-spacer {
   width: 44px;
+}
+
+.preview-image-wrap {
+  flex: 1;
+  display: flex;
+  min-height: 0;
 }
 
 .preview-image-container {
@@ -806,12 +805,6 @@ body {
   animation: fade-in 0.25s ease;
 }
 
-@media (min-width: 1024px) {
-  .loading-overlay {
-    border-radius: 24px;
-  }
-}
-
 .loading-logo {
   width: 72px;
   height: 72px;
@@ -890,13 +883,6 @@ body {
   -webkit-overflow-scrolling: touch;
   background: var(--color-bg);
   padding-bottom: calc(2rem + env(safe-area-inset-bottom));
-}
-
-@media (min-width: 1024px) {
-  .results-shell {
-    border-radius: 0 24px 24px 0;
-    padding-bottom: 2rem;
-  }
 }
 
 .results-header {
@@ -993,7 +979,6 @@ body {
   color: var(--color-error);
 }
 
-/* Hero Card */
 .hero-card {
   margin: 1.25rem;
   padding: 1.5rem;
@@ -1074,7 +1059,6 @@ body {
   }
 }
 
-/* Health Card */
 .health-card {
   margin: 0 1.25rem 1rem;
   padding: 1rem 1.25rem;
@@ -1137,7 +1121,6 @@ body {
   }
 }
 
-/* Section */
 .section {
   margin: 0 1.25rem 1rem;
 }
@@ -1187,7 +1170,6 @@ body {
   }
 }
 
-/* Macro Card */
 .macro-card {
   background: var(--color-bg-elevated);
   border-radius: 16px;
@@ -1274,7 +1256,6 @@ body {
   transition: width 0.6s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-/* Category Cards */
 .category-section {
   animation: fade-up 0.4s ease-out 0.15s backwards;
 }
@@ -1406,7 +1387,6 @@ body {
   color: var(--color-fg-muted);
 }
 
-/* Tips Card */
 .tips-card {
   background: var(--color-bg-elevated);
   border-radius: 16px;
@@ -1455,7 +1435,6 @@ body {
   margin-top: 0.4rem;
 }
 
-/* Notes */
 .results-notes {
   margin: 0 1.25rem 1rem;
   padding: 0.85rem 1rem;
@@ -1476,7 +1455,6 @@ body {
   }
 }
 
-/* Results Actions */
 .results-actions {
   padding: 0.5rem 1.25rem 0;
 }
@@ -1506,16 +1484,6 @@ body {
   overflow-y: auto;
   background: var(--color-bg);
   animation: slide-up 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-@media (min-width: 1024px) {
-  .history-shell {
-    position: relative;
-    inset: auto;
-    z-index: auto;
-    border-radius: 0 24px 24px 0;
-    animation: fade-in 0.3s ease;
-  }
 }
 
 .history-header {
@@ -1598,7 +1566,6 @@ body {
   border-color: var(--color-error);
 }
 
-/* Empty State */
 .history-empty {
   display: flex;
   flex-direction: column;
@@ -1655,7 +1622,6 @@ body {
   }
 }
 
-/* History List */
 .history-list {
   padding: 1rem 1.25rem;
   display: flex;
@@ -1783,7 +1749,6 @@ body {
   color: var(--color-error);
 }
 
-/* Error Banner */
 .error-banner {
   position: fixed;
   bottom: calc(env(safe-area-inset-bottom) + 5rem);
