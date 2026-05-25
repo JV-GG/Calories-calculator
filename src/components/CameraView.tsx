@@ -23,10 +23,9 @@ export function CameraView({
 }: CameraViewProps) {
   const fileRef = useRef<HTMLInputElement>(null)
 
-  const processFile = useCallback((file: File) => {
-    if (!file.type.startsWith('image/')) {
-      return
-    }
+  const handleFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
     const reader = new FileReader()
     reader.onload = () => {
       const result = reader.result as string
@@ -34,25 +33,22 @@ export function CameraView({
       if (base64) onUpload(base64, result)
     }
     reader.readAsDataURL(file)
+    e.target.value = ''
   }, [onUpload])
 
-  const handleFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    processFile(file)
-    e.target.value = ''
-  }, [processFile])
-
   const handleGalleryClick = useCallback(() => {
-    fileRef.current?.click()
+    if (fileRef.current) {
+      // Reset the input to ensure change event fires even if same file selected
+      fileRef.current.value = ''
+      fileRef.current.click()
+    }
   }, [])
 
   return (
     <div className="camera-shell">
-      {/* Header */}
       <header className="camera-header">
         <div className="header-brand">
-          <img src={BitesAILogo} alt="BitesAI Logo" className="brand-logo" />
+          <img src={BitesAILogo} alt="CalorieLens" className="brand-logo" />
           <div className="brand-text">
             <h1>CalorieLens</h1>
             <p>Snap · Estimate · Eat smarter</p>
@@ -66,16 +62,15 @@ export function CameraView({
             onClick={onHistory}
             aria-label="View history"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10"/>
               <polyline points="12 6 12 12 16 14"/>
             </svg>
-            <span>History</span>
+            History
           </button>
         )}
       </header>
 
-      {/* Viewfinder */}
       <div className="viewfinder-container">
         <div className="viewfinder">
           <video
@@ -89,38 +84,25 @@ export function CameraView({
 
           {!ready && (
             <div className="viewfinder-placeholder" role="status">
-              {cameraError ? (
-                <>
-                  <div className="placeholder-icon">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10"/>
-                      <line x1="12" y1="8" x2="12" y2="12"/>
-                      <line x1="12" y1="16" x2="12.01" y2="16"/>
-                    </svg>
-                  </div>
-                  <p className="placeholder-text">{cameraError}</p>
-                  <p className="placeholder-text" style={{ fontSize: '0.75rem', opacity: 0.6 }}>
-                    Tap the Gallery button below to upload
-                  </p>
-                </>
-              ) : (
-                <>
-                  <div className="placeholder-icon">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                      <circle cx="12" cy="13" r="4"/>
-                    </svg>
-                  </div>
-                  <p className="placeholder-text">Starting camera...</p>
-                </>
+              <div className="placeholder-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              </div>
+              <p className="placeholder-text">
+                {cameraError || 'Starting camera...'}
+              </p>
+              {cameraError && (
+                <p className="placeholder-text" style={{ fontSize: '0.75rem', opacity: 0.6 }}>
+                  Tap Gallery below to upload a photo
+                </p>
               )}
             </div>
           )}
 
-          {/* Overlay */}
           <div className="viewfinder-overlay" aria-hidden="true">
             <div className="viewfinder-frame" />
-            <div className="focus-ring" />
             {ready && (
               <div className="viewfinder-hint">
                 Position food within frame
@@ -130,7 +112,6 @@ export function CameraView({
         </div>
       </div>
 
-      {/* Controls */}
       <div className="camera-controls">
         <button
           type="button"
@@ -176,6 +157,7 @@ export function CameraView({
         </button>
       </div>
 
+      {/* File input - no capture attribute means gallery picker on all devices */}
       <input
         ref={fileRef}
         type="file"

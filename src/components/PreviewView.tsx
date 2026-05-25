@@ -11,7 +11,7 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
     <div className="preview-shell">
       <header className="preview-header">
         <button type="button" className="back-btn" onClick={onRetake} aria-label="Retake photo">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"/>
             <polyline points="12 19 5 12 12 5"/>
           </svg>
