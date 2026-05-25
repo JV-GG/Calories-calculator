@@ -1,6 +1,7 @@
-import { useRef, useCallback } from 'react'
+import { useRef, useCallback, useState } from 'react'
 import type { RefObject } from 'react'
 import BitesAILogo from '../../BitesAI.png'
+import { convertHeicToJpeg, isHeicFile } from '../lib/imageConversion'
 
 interface CameraViewProps {
   videoRef: RefObject<HTMLVideoElement | null>
@@ -22,27 +23,45 @@ export function CameraView({
   hasHistory,
 }: CameraViewProps) {
   const fileRef = useRef<HTMLInputElement>(null)
+  const [isConverting, setIsConverting] = useState(false)
 
-  const handleFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
-    const reader = new FileReader()
-    reader.onload = () => {
-      const result = reader.result as string
-      const base64 = result.split(',')[1]
-      if (base64) onUpload(base64, result)
+
+    try {
+      // Check if it's HEIC format
+      if (isHeicFile(file)) {
+        setIsConverting(true)
+        const converted = await convertHeicToJpeg(file)
+        onUpload(converted.base64, converted.previewUrl)
+      } else {
+        // Standard image processing
+        const reader = new FileReader()
+        reader.onload = () => {
+          const result = reader.result as string
+          const base64 = result.split(',')[1]
+          if (base64) onUpload(base64, result)
+        }
+        reader.readAsDataURL(file)
+      }
+    } catch (err) {
+      console.error('Image processing error:', err)
+      alert('Failed to process image. Please try again.')
+    } finally {
+      setIsConverting(false)
+      if (fileRef.current) {
+        fileRef.current.value = ''
+      }
     }
-    reader.readAsDataURL(file)
-    e.target.value = ''
   }, [onUpload])
 
   const handleGalleryClick = useCallback(() => {
-    if (fileRef.current) {
-      // Reset the input to ensure change event fires even if same file selected
+    if (fileRef.current && !isConverting) {
       fileRef.current.value = ''
       fileRef.current.click()
     }
-  }, [])
+  }, [isConverting])
 
   return (
     <div className="camera-shell">
@@ -101,9 +120,20 @@ export function CameraView({
             </div>
           )}
 
+          {isConverting && (
+            <div className="viewfinder-placeholder" role="status">
+              <div className="placeholder-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                </svg>
+              </div>
+              <p className="placeholder-text">Converting image...</p>
+            </div>
+          )}
+
           <div className="viewfinder-overlay" aria-hidden="true">
             <div className="viewfinder-frame" />
-            {ready && (
+            {ready && !isConverting && (
               <div className="viewfinder-hint">
                 Position food within frame
               </div>
@@ -117,6 +147,7 @@ export function CameraView({
           type="button"
           className="control-btn"
           onClick={handleGalleryClick}
+          disabled={isConverting}
           aria-label="Select from gallery"
         >
           <div className="control-btn-icon">
@@ -133,7 +164,7 @@ export function CameraView({
           type="button"
           className="snap-btn"
           onClick={onSnap}
-          disabled={!ready}
+          disabled={!ready || isConverting}
           aria-label="Take photo"
           aria-busy={!ready}
         >
@@ -145,6 +176,7 @@ export function CameraView({
           type="button"
           className="control-btn"
           onClick={onHistory}
+          disabled={isConverting}
           aria-label="View history"
         >
           <div className="control-btn-icon">
@@ -157,7 +189,6 @@ export function CameraView({
         </button>
       </div>
 
-      {/* File input - no capture attribute means gallery picker on all devices */}
       <input
         ref={fileRef}
         type="file"
