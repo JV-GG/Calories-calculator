@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import type { CalorieAnalysis, FoodCategory } from '../../shared/types'
+import BitesAILogo from '../../BitesAI.png'
 
 interface ResultsViewProps {
   analysis: CalorieAnalysis
@@ -9,7 +10,7 @@ interface ResultsViewProps {
 
 const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; textColor: string; icon: ReactNode }> = {
   protein: {
-    label: '蛋白质',
+    label: 'Protein',
     bgColor: 'rgba(198, 123, 92, 0.15)',
     textColor: '#8B5A3C',
     icon: (
@@ -19,7 +20,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   grains: {
-    label: '主食',
+    label: 'Grains',
     bgColor: 'rgba(212, 165, 116, 0.15)',
     textColor: '#996B3D',
     icon: (
@@ -30,7 +31,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   vegetables: {
-    label: '蔬菜',
+    label: 'Vegetables',
     bgColor: 'rgba(45, 106, 79, 0.12)',
     textColor: '#2D6A4F',
     icon: (
@@ -41,7 +42,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   fruits: {
-    label: '水果',
+    label: 'Fruits',
     bgColor: 'rgba(212, 165, 116, 0.12)',
     textColor: '#996B3D',
     icon: (
@@ -52,7 +53,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   dairy: {
-    label: '奶制品',
+    label: 'Dairy',
     bgColor: 'rgba(143, 168, 138, 0.15)',
     textColor: '#5A7A66',
     icon: (
@@ -62,7 +63,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   fats_oils: {
-    label: '油脂坚果',
+    label: 'Fats & Oils',
     bgColor: 'rgba(166, 124, 82, 0.15)',
     textColor: '#7A4C2A',
     icon: (
@@ -72,7 +73,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   beverages: {
-    label: '饮品汤类',
+    label: 'Beverages',
     bgColor: 'rgba(91, 138, 114, 0.12)',
     textColor: '#3D6B5C',
     icon: (
@@ -82,7 +83,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   snacks: {
-    label: '零食甜点',
+    label: 'Snacks',
     bgColor: 'rgba(155, 107, 158, 0.12)',
     textColor: '#6B4A6E',
     icon: (
@@ -95,7 +96,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   condiments: {
-    label: '调味酱料',
+    label: 'Condiments',
     bgColor: 'rgba(122, 111, 93, 0.12)',
     textColor: '#5A4F3D',
     icon: (
@@ -105,7 +106,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     ),
   },
   mixed: {
-    label: '混合菜品',
+    label: 'Mixed Dishes',
     bgColor: 'rgba(90, 122, 102, 0.12)',
     textColor: '#3A5A46',
     icon: (
@@ -162,7 +163,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
   const { items, totalCalories, totalMacros, confidence, notes, healthInsight } = analysis
 
   const confidenceLabel =
-    confidence === 'high' ? '高置信度' : confidence === 'medium' ? '中等置信度' : '低置信度'
+    confidence === 'high' ? 'High confidence' : confidence === 'medium' ? 'Medium confidence' : 'Low confidence'
 
   // Group items by category
   const itemsByCategory = items.reduce((acc, item) => {
@@ -180,7 +181,8 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
       <header className="results-header">
         <img src={previewUrl} alt="" className="results-thumb" />
         <div className="results-header-info">
-          <h2>营养分析报告</h2>
+          <img src={BitesAILogo} alt="" className="results-logo" />
+          <h2>Nutrition Analysis Report</h2>
           <span
             className={`confidence-badge confidence-${confidence}`}
           >
@@ -191,7 +193,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
 
       {/* Hero Card - Total Calories */}
       <div className="hero-card">
-        <p className="hero-card-label">总热量</p>
+        <p className="hero-card-label">Total Calories</p>
         <div className="hero-card-value">
           <span className="hero-card-number">{totalCalories}</span>
           <span className="hero-card-unit">kcal</span>
@@ -201,7 +203,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
       {/* Health Rating */}
       <div className="health-card">
         <div className="health-rating-header">
-          <div className="health-stars" aria-label={`健康评分 ${healthInsight.rating} 星`}>
+          <div className="health-stars" aria-label={`Health rating ${healthInsight.rating} stars`}>
             {[1, 2, 3, 4, 5].map((i) => (
               <svg
                 key={i}
@@ -230,15 +232,15 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
               <path d="M18 20V10M12 20V4M6 20v-6"/>
             </svg>
           </div>
-          <h3 className="section-title">营养成分</h3>
+          <h3 className="section-title">Nutritional Facts</h3>
         </div>
         <div className="macro-card">
           <div className="macro-list">
-            <MacroBar label="蛋白质" value={totalMacros.protein} max={macroMax} color="#C67B5C" />
-            <MacroBar label="碳水化合物" value={totalMacros.carbs} max={macroMax} color="#D4A574" />
-            <MacroBar label="脂肪" value={totalMacros.fat} max={macroMax} color="#40916C" />
+            <MacroBar label="Protein" value={totalMacros.protein} max={macroMax} color="#C67B5C" />
+            <MacroBar label="Carbohydrates" value={totalMacros.carbs} max={macroMax} color="#D4A574" />
+            <MacroBar label="Fat" value={totalMacros.fat} max={macroMax} color="#40916C" />
             {totalMacros.fiber !== undefined && (
-              <MacroBar label="膳食纤维" value={totalMacros.fiber} max={30} color="#5B8A72" />
+              <MacroBar label="Fiber" value={totalMacros.fiber} max={30} color="#5B8A72" />
             )}
           </div>
         </div>
@@ -255,7 +257,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
               <rect x="3" y="14" width="7" height="7" rx="1"/>
             </svg>
           </div>
-          <h3 className="section-title">食物分类</h3>
+          <h3 className="section-title">Food Classification</h3>
         </div>
 
         {Object.entries(itemsByCategory).map(([cat, catItems]) => {
@@ -315,7 +317,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
                 <path d="M12 16v-4M12 8h.01"/>
               </svg>
             </div>
-            <h3 className="section-title">健康建议</h3>
+            <h3 className="section-title">Health Tips</h3>
           </div>
           <div className="tips-card">
             <ul className="tips-list">
@@ -340,7 +342,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
             <path d="M23 4v6h-6M1 20v-6h6"/>
             <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
           </svg>
-          再次扫描
+          Scan Again
         </button>
       </div>
     </div>

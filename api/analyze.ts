@@ -8,7 +8,7 @@ const USER_PROMPT = `Analyze this food image and provide a detailed nutritional 
 {
   "items": [
     {
-      "name": "Food name in Chinese",
+      "name": "Food name in English",
       "portion": "estimated portion size (e.g., '150g', '2 slices', '1 cup')",
       "calories": number,
       "category": "one of: protein, grains, vegetables, fruits, dairy, fats_oils, beverages, snacks, condiments, mixed",
@@ -31,10 +31,10 @@ const USER_PROMPT = `Analyze this food image and provide a detailed nutritional 
   "healthInsight": {
     "rating": 1 to 5 (1=poor, 5=excellent),
     "label": "One of: Poor, Fair, Good, Great, Excellent",
-    "summary": "Brief overall health assessment in Chinese",
-    "tips": ["Tip 1 in Chinese", "Tip 2 in Chinese", "Tip 3 in Chinese"]
+    "summary": "Brief overall health assessment in English",
+    "tips": ["Tip 1 in English", "Tip 2 in English", "Tip 3 in English"]
   },
-  "notes": "Additional observations in Chinese"
+  "notes": "Additional observations in English"
 }
 
 Category Guidelines:
@@ -82,7 +82,7 @@ async function callMiniMaxVlm(
   }
 
   if (!data.content) {
-    throw new Error('VLM 返回为空')
+    throw new Error('VLM returned empty response')
   }
 
   return data.content
@@ -130,7 +130,7 @@ async function callMiniMaxChat(
 
   const content = data.choices?.[0]?.message?.content
   if (!content) {
-    throw new Error('Chat API 返回为空')
+    throw new Error('Chat API returned empty response')
   }
 
   return content
@@ -143,12 +143,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const apiKey = process.env.MINIMAX_API_KEY
   if (!apiKey) {
-    return res.status(500).json({ error: 'MINIMAX_API_KEY 未配置' })
+    return res.status(500).json({ error: 'MINIMAX_API_KEY not configured' })
   }
 
   const { image } = req.body as { image?: string }
   if (!image || typeof image !== 'string') {
-    return res.status(400).json({ error: '缺少图片数据' })
+    return res.status(400).json({ error: 'Missing image data' })
   }
 
   const imageDataUrl = image.startsWith('data:')
@@ -166,7 +166,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const analysis = parseAnalysisResponse(rawText)
     return res.status(200).json(analysis)
   } catch (err) {
-    const message = err instanceof Error ? err.message : '分析失败'
+    const message = err instanceof Error ? err.message : 'Analysis failed'
     return res.status(500).json({ error: message })
   }
 }

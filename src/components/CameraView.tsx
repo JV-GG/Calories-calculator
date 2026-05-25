@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import type { RefObject } from 'react'
+import BitesAILogo from '../../BitesAI.png'
 
 interface CameraViewProps {
   videoRef: RefObject<HTMLVideoElement | null>
@@ -41,13 +42,7 @@ export function CameraView({
       {/* Header */}
       <header className="camera-header">
         <div className="header-brand">
-          <div className="brand-icon" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-              <circle cx="12" cy="12" r="9" strokeDasharray="4 2"/>
-            </svg>
-          </div>
+          <img src={BitesAILogo} alt="BitesAI Logo" className="brand-logo" />
           <div className="brand-text">
             <h1>CalorieLens</h1>
             <p>Snap · Estimate · Eat smarter</p>
@@ -59,13 +54,13 @@ export function CameraView({
             type="button"
             className="history-btn"
             onClick={onHistory}
-            aria-label="查看历史记录"
+            aria-label="View history"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="9"/>
               <polyline points="12,7 12,12 15,15"/>
             </svg>
-            <span>历史</span>
+            <span>History</span>
           </button>
         )}
       </header>
@@ -79,7 +74,7 @@ export function CameraView({
             playsInline
             muted
             autoPlay
-            aria-label="相机取景"
+            aria-label="Camera viewfinder"
           />
 
           {!ready && (
@@ -93,7 +88,7 @@ export function CameraView({
                   </div>
                   <p className="placeholder-text">{cameraError}</p>
                   <p className="placeholder-text" style={{ fontSize: '0.75rem', opacity: 0.5 }}>
-                    点击下方按钮上传图片
+                    Click button below to upload image
                   </p>
                 </>
               ) : (
@@ -104,7 +99,7 @@ export function CameraView({
                       <circle cx="12" cy="13" r="4"/>
                     </svg>
                   </div>
-                  <p className="placeholder-text">正在启动相机...</p>
+                  <p className="placeholder-text">Starting camera...</p>
                 </>
               )}
             </div>
@@ -116,7 +111,7 @@ export function CameraView({
             <div className="focus-ring" />
             {ready && (
               <div className="viewfinder-hint">
-                将食物置于框内
+                Position food within frame
               </div>
             )}
           </div>
@@ -129,7 +124,7 @@ export function CameraView({
           type="button"
           className="control-btn"
           onClick={() => fileRef.current?.click()}
-          aria-label="从相册选择"
+          aria-label="Select from gallery"
         >
           <div className="control-btn-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -138,7 +133,7 @@ export function CameraView({
               <path d="M21 15l-5-5L5 21"/>
             </svg>
           </div>
-          <span className="control-btn-label">相册</span>
+          <span className="control-btn-label">Gallery</span>
         </button>
 
         <button
@@ -146,7 +141,7 @@ export function CameraView({
           className="snap-btn"
           onClick={onSnap}
           disabled={!ready}
-          aria-label="拍照"
+          aria-label="Take photo"
           aria-busy={!ready}
         >
           <div className="snap-btn-ring" />
@@ -157,7 +152,7 @@ export function CameraView({
           type="button"
           className="control-btn"
           onClick={onHistory}
-          aria-label="查看历史"
+          aria-label="View history"
         >
           <div className="control-btn-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -165,7 +160,7 @@ export function CameraView({
               <polyline points="12,7 12,12 15,15"/>
             </svg>
           </div>
-          <span className="control-btn-label">历史</span>
+          <span className="control-btn-label">History</span>
         </button>
       </div>
 

@@ -23,8 +23,8 @@ function parseHealthInsight(input: unknown): HealthInsight {
     return {
       rating: 3,
       label: 'Good',
-      summary: '营养均衡的一餐',
-      tips: ['保持适量运动', '多摄入蔬菜水果'],
+      summary: 'A balanced meal with good nutritional value',
+      tips: ['Maintain regular exercise', 'Include more vegetables and fruits'],
     }
   }
   const h = input as Record<string, unknown>
@@ -37,27 +37,27 @@ function parseHealthInsight(input: unknown): HealthInsight {
     tips = h.tips.filter(t => typeof t === 'string').slice(0, 5)
   }
   if (tips.length === 0) {
-    tips = ['保持均衡饮食']
+    tips = ['Maintain a balanced diet']
   }
 
-return {
-      rating,
-      label,
-      summary: String(h.summary ?? '营养评估完成'),
-      tips,
-    }
+  return {
+    rating,
+    label,
+    summary: String(h.summary ?? 'Nutrition assessment complete'),
+    tips,
+  }
 }
 
 export function parseAnalysisResponse(text: string): CalorieAnalysis {
   const jsonMatch = text.match(/\{[\s\S]*\}/)
   if (!jsonMatch) {
-    throw new Error('模型未返回有效 JSON')
+    throw new Error('Model did not return valid JSON')
   }
 
   const parsed = JSON.parse(jsonMatch[0]) as Record<string, unknown>
 
   if (!Array.isArray(parsed.items) || parsed.items.length === 0) {
-    throw new Error('未识别到食物项')
+    throw new Error('No food items detected')
   }
 
   const items = parsed.items.map((item, index) => {
@@ -67,7 +67,7 @@ export function parseAnalysisResponse(text: string): CalorieAnalysis {
       : 'mixed'
 
     return {
-      name: String(i.name ?? `食物 ${index + 1}`),
+      name: String(i.name ?? `Food ${index + 1}`),
       portion: String(i.portion ?? '—'),
       calories: Number(i.calories) || 0,
       category,
@@ -101,7 +101,7 @@ export function parseAnalysisResponse(text: string): CalorieAnalysis {
     totalCalories,
     totalMacros,
     confidence,
-    notes: String(parsed.notes ?? '基于可见份量的估算'),
+    notes: String(parsed.notes ?? 'Estimate based on visible portions'),
     healthInsight: parseHealthInsight(parsed.healthInsight),
   }
 }

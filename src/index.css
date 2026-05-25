@@ -195,15 +195,11 @@ body {
   gap: 0.75rem;
 }
 
-.brand-icon {
+.brand-logo {
   width: 40px;
   height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  color: white;
+  object-fit: contain;
+  border-radius: 10px;
 }
 
 .brand-text h1 {
@@ -507,6 +503,14 @@ body {
   text-align: center;
 }
 
+.preview-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin: 0 auto 0.5rem;
+  border-radius: 8px;
+}
+
 .preview-title h2 {
   font-family: var(--font-display);
   font-size: 1.1rem;
@@ -643,6 +647,19 @@ body {
   margin-top: 0.25rem;
 }
 
+.loading-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 16px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.95); }
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -679,6 +696,14 @@ body {
 
 .results-header-info {
   flex: 1;
+}
+
+.results-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin-bottom: 0.35rem;
+  border-radius: 6px;
 }
 
 .results-header-info h2 {
@@ -1069,11 +1094,26 @@ body {
   border-bottom: 1px solid var(--color-border);
 }
 
+.history-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.history-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
 .history-header h1 {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-fg);
+  margin: 0;
 }
 
 .clear-btn {
@@ -1106,16 +1146,13 @@ body {
   text-align: center;
 }
 
-.empty-icon {
+.empty-logo {
   width: 80px;
   height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-bg-muted);
-  border-radius: 50%;
-  color: var(--color-fg-subtle);
+  object-fit: contain;
   margin-bottom: 1.5rem;
+  border-radius: 20px;
+  opacity: 0.6;
 }
 
 .empty-title {
