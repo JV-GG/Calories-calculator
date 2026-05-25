@@ -1,4 +1,4 @@
-import type { ScanHistoryItem } from '../../shared/types'
+import type { ScanHistoryItem } from '../../shared/types.js'
 import BitesAILogo from '../../BitesAI.png'
 
 interface HistoryViewProps {

@@ -1,4 +1,4 @@
-import type { CalorieAnalysis, FoodCategory, Macros, HealthInsight } from './types'
+import type { CalorieAnalysis, FoodCategory, Macros, HealthInsight } from './types.js'
 
 const VALID_CATEGORIES: FoodCategory[] = [
   'protein', 'grains', 'vegetables', 'fruits', 'dairy',

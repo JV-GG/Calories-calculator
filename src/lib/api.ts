@@ -1,4 +1,4 @@
-import type { CalorieAnalysis } from '../types'
+import type { CalorieAnalysis } from '../types.js'
 
 export async function analyzeFoodImage(base64: string): Promise<CalorieAnalysis> {
   const res = await fetch('/api/analyze', {
@@ -10,7 +10,7 @@ export async function analyzeFoodImage(base64: string): Promise<CalorieAnalysis>
   const data = (await res.json()) as { error?: string } & Partial<CalorieAnalysis>
 
   if (!res.ok) {
-    throw new Error(data.error ?? `分析失败 (${res.status})`)
+    throw new Error(data.error ?? `Analysis failed (${res.status})`)
   }
 
   return data as CalorieAnalysis

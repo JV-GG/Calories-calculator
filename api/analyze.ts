@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { parseAnalysisResponse } from '../shared/parseAnalysis'
+import { parseAnalysisResponse } from '../shared/parseAnalysis.js'
 
 const SYSTEM_PROMPT = `You are a professional nutrition expert and food analyst. Analyze food photos and provide comprehensive nutritional information. Always return valid JSON only without any markdown formatting or extra text.`
 

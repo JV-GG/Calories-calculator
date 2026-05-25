@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import type { CalorieAnalysis, FoodCategory } from '../../shared/types'
+import type { CalorieAnalysis, FoodCategory } from '../../shared/types.js'
 import BitesAILogo from '../../BitesAI.png'
 
 interface ResultsViewProps {
