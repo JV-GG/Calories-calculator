@@ -49,15 +49,29 @@ function parseHealthInsight(input: unknown): HealthInsight {
 }
 
 export function parseAnalysisResponse(text: string): CalorieAnalysis {
-  const jsonMatch = text.match(/\{[\s\S]*\}/)
+  // Clean up the text - remove any markdown code blocks or extra characters
+  let cleanedText = text.trim()
+  
+  // Remove markdown code block markers
+  cleanedText = cleanedText.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
+  
+  // Try to find JSON object in the text
+  const jsonMatch = cleanedText.match(/\{[\s\S]*\}/)
   if (!jsonMatch) {
-    throw new Error('Model did not return valid JSON')
+    console.error('No JSON found in response:', text.substring(0, 200))
+    throw new Error('Model did not return valid JSON format. Please try again.')
   }
 
-  const parsed = JSON.parse(jsonMatch[0]) as Record<string, unknown>
+  let parsed: Record<string, unknown>
+  try {
+    parsed = JSON.parse(jsonMatch[0])
+  } catch (err) {
+    console.error('JSON parse error:', err, 'Raw text:', text.substring(0, 500))
+    throw new Error('Failed to parse food analysis. Please try again.')
+  }
 
   if (!Array.isArray(parsed.items) || parsed.items.length === 0) {
-    throw new Error('No food items detected')
+    throw new Error('No food items detected in the image')
   }
 
   const items = parsed.items.map((item, index) => {

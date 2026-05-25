@@ -55,11 +55,31 @@ function getApiHost(): string {
   return process.env.MINIMAX_API_HOST ?? 'https://api.minimax.io'
 }
 
+function cleanBase64(base64: string): string {
+  // Remove any data URL prefix if present
+  const parts = base64.split(',')
+  return parts.length > 1 ? parts[1] : base64
+}
+
+function getImageMimeType(base64: string): string {
+  // Detect image type from base64 header
+  if (base64.startsWith('/9j/')) return 'image/jpeg'
+  if (base64.startsWith('iVBOR')) return 'image/png'
+  if (base64.startsWith('R0lGO')) return 'image/gif'
+  if (base64.startsWith('UklGR')) {
+    // Could be WebP - check second part
+    const matches = base64.match(/^UklGR([a-zA-Z0-9]+)/)
+    if (matches) return 'image/webp'
+  }
+  return 'image/jpeg' // Default to JPEG
+}
+
 async function callMiniMaxVlm(
   apiKey: string,
   imageDataUrl: string
 ): Promise<string> {
   const host = getApiHost()
+  
   const res = await fetch(`${host}/v1/coding_plan/vlm`, {
     method: 'POST',
     headers: {
@@ -78,7 +98,9 @@ async function callMiniMaxVlm(
   }
 
   if (!res.ok || (data.base_resp?.status_code && data.base_resp.status_code !== 0)) {
-    throw new Error(data.base_resp?.status_msg ?? `VLM API error ${res.status}`)
+    const errorMsg = data.base_resp?.status_msg ?? `VLM API error ${res.status}`
+    console.error('VLM API error:', errorMsg)
+    throw new Error(errorMsg)
   }
 
   if (!data.content) {
@@ -93,6 +115,7 @@ async function callMiniMaxChat(
   imageDataUrl: string
 ): Promise<string> {
   const host = getApiHost()
+  
   const res = await fetch(`${host}/v1/text/chatcompletion_v2`, {
     method: 'POST',
     headers: {
@@ -125,7 +148,9 @@ async function callMiniMaxChat(
   }
 
   if (!res.ok || (data.base_resp?.status_code && data.base_resp.status_code !== 0)) {
-    throw new Error(data.base_resp?.status_msg ?? `Chat API error ${res.status}`)
+    const errorMsg = data.base_resp?.status_msg ?? `Chat API error ${res.status}`
+    console.error('Chat API error:', errorMsg)
+    throw new Error(errorMsg)
   }
 
   const content = data.choices?.[0]?.message?.content
@@ -151,15 +176,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'Missing image data' })
   }
 
-  const imageDataUrl = image.startsWith('data:')
-    ? image
-    : `data:image/jpeg;base64,${image}`
-
   try {
+    // Clean and validate base64
+    let cleanBase = cleanBase64(image)
+    
+    // Validate base64 format
+    if (!/^[A-Za-z0-9+/=]+$/.test(cleanBase)) {
+      return res.status(400).json({ error: 'Invalid image data format' })
+    }
+
+    // Detect and use correct MIME type
+    const mimeType = getImageMimeType(cleanBase)
+    const imageDataUrl = `data:${mimeType};base64,${cleanBase}`
+
     let rawText: string
     try {
       rawText = await callMiniMaxVlm(apiKey, imageDataUrl)
-    } catch {
+    } catch (vlmErr) {
+      console.log('VLM failed, trying chat API:', vlmErr)
       rawText = await callMiniMaxChat(apiKey, imageDataUrl)
     }
 
@@ -167,6 +201,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json(analysis)
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Analysis failed'
+    console.error('Analysis error:', message)
     return res.status(500).json({ error: message })
   }
 }
