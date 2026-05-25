@@ -1,3 +1,1 @@
-export type { FoodItem, CalorieAnalysis } from '../shared/parseAnalysis'
-
-export type AppPhase = 'camera' | 'preview' | 'analyzing' | 'results'
+export type { FoodItem, Macros, FoodCategory, HealthInsight, CalorieAnalysis, AppPhase, ScanHistoryItem } from '../shared/types'

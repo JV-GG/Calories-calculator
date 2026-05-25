@@ -1,17 +1,55 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { parseAnalysisResponse } from '../shared/parseAnalysis'
 
-const SYSTEM_PROMPT =
-  'You are a nutrition expert. Analyze food photos and return calorie estimates as JSON only. Be concise and realistic with portion sizes.'
+const SYSTEM_PROMPT = `You are a professional nutrition expert and food analyst. Analyze food photos and provide comprehensive nutritional information. Always return valid JSON only without any markdown formatting or extra text.`
 
-const USER_PROMPT = `Identify each food item in this image. Return ONLY valid JSON with this exact shape (no markdown, no extra text):
+const USER_PROMPT = `Analyze this food image and provide a detailed nutritional breakdown. Return ONLY valid JSON with this exact structure:
+
 {
-  "items": [{ "name": "Food name", "portion": "150g", "calories": 248 }],
-  "totalCalories": 454,
-  "confidence": "medium",
-  "notes": "Estimates based on visible portion sizes"
+  "items": [
+    {
+      "name": "Food name in Chinese",
+      "portion": "estimated portion size (e.g., '150g', '2 slices', '1 cup')",
+      "calories": number,
+      "category": "one of: protein, grains, vegetables, fruits, dairy, fats_oils, beverages, snacks, condiments, mixed",
+      "macros": {
+        "protein": number in grams,
+        "carbs": number in grams,
+        "fat": number in grams,
+        "fiber": number in grams (optional)
+      }
+    }
+  ],
+  "totalCalories": number,
+  "totalMacros": {
+    "protein": number,
+    "carbs": number,
+    "fat": number,
+    "fiber": number
+  },
+  "confidence": "high" or "medium" or "low",
+  "healthInsight": {
+    "rating": 1 to 5 (1=poor, 5=excellent),
+    "label": "One of: Poor, Fair, Good, Great, Excellent",
+    "summary": "Brief overall health assessment in Chinese",
+    "tips": ["Tip 1 in Chinese", "Tip 2 in Chinese", "Tip 3 in Chinese"]
+  },
+  "notes": "Additional observations in Chinese"
 }
-confidence must be one of: high, medium, low.`
+
+Category Guidelines:
+- protein: Meat, fish, eggs, tofu, beans
+- grains: Rice, bread, pasta, noodles, cereals
+- vegetables: All vegetables and salads
+- fruits: All fruits
+- dairy: Milk, cheese, yogurt, ice cream
+- fats_oils: Oils, butter, nuts, seeds, avocado
+- beverages: Coffee, tea, juice, soda, soup
+- snacks: Chips, cookies, candy, chocolate, desserts
+- condiments: Sauces, dressings, spices, salt
+- mixed: Combination dishes (curry, pizza, burgers, etc.)
+
+Be accurate with portion estimates and ensure totalCalories equals sum of all item calories.`
 
 function getApiHost(): string {
   return process.env.MINIMAX_API_HOST ?? 'https://api.minimax.io'
