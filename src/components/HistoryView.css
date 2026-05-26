@@ -17,6 +17,24 @@
   .history-shell { animation: fadeIn 0.3s ease both; }
 }
 
+/* Desktop: constrained content */
+.history-content {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .history-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  .history-content {
+    max-width: 1100px;
+  }
+}
+
 .history-item {
   display: flex;
   align-items: center;
@@ -32,6 +50,13 @@
   font-family: var(--font-family-sans);
 }
 
+@media (min-width: 1024px) {
+  .history-item {
+    padding: 1rem 1.25rem;
+    gap: 1rem;
+  }
+}
+
 .history-item:hover {
   background: var(--color-surface);
   transform: translateY(-2px);
@@ -40,4 +65,25 @@
 
 .history-item:active {
   transform: scale(0.985);
+}
+
+/* Desktop grid for history items */
+.history-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .history-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .history-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

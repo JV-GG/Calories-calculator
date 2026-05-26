@@ -14,10 +14,6 @@
   overflow: hidden;
 }
 
-@media (min-width: 1024px) {
-  .loading-overlay { border-radius: 1.75rem; }
-}
-
 .loading-logo {
   width: 4.5rem;
   height: 4.5rem;
