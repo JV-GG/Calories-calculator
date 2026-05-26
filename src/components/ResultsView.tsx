@@ -137,7 +137,12 @@ function MacroBar({ label, value, max, color }: {
 }
 
 function FoodClassification({ itemsByCategory }: {
-  itemsByCategory: Record<FoodCategory, Array<{ name: string; calories: number; portion?: string; macros?: { protein: number; carbs: number; fat: number } }>>
+  itemsByCategory: Record<FoodCategory, Array<{
+    name: string
+    calories: number
+    portion?: string
+    macros?: { protein: number; carbs: number; fat: number }
+  }>>
 }) {
   return (
     <>
@@ -210,9 +215,10 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
   return (
     <div className="results-shell">
       <div className="results-layout">
-        {/* ── TOP ROW: Photo | Hero Calorie + Stats | Food Classification ── */}
+        {/* ── TOP ROW ────────────────────────────────────── */}
         <div className="results-top-row">
-          {/* Left: Photo + Meta + CTA */}
+
+          {/* Left: Photo + Confidence/History + CTA in grid */}
           <div className="results-panel-photo">
             <div className="results-photo-card">
               <img src={previewUrl} alt="Scanned food" />
@@ -225,6 +231,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
                 AI Analysis
               </div>
             </div>
+
             <div className="results-meta-row">
               <span className={`results-confidence ${confidence}`}>
                 {confidence === 'high' && (
@@ -246,9 +253,10 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
                 History
               </button>
             </div>
+
             <div className="results-cta">
-              <button type="button" onClick={onScanAgain} className="cta-button">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <button type="button" onClick={onScanAgain} className="cta-button" aria-label="Scan another food item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
                   <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
                 </svg>
@@ -257,7 +265,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
             </div>
           </div>
 
-          {/* Center: Hero Calorie + Stats */}
+          {/* Center: Hero Calorie Card */}
           <div className="results-panel-hero">
             <div className="hero-card">
               <div className="hero-card-inner">
@@ -268,7 +276,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
                 <span className="hero-card-unit">kcal per serving</span>
                 <div className="hero-card-bottom">
                   <div className="hero-health">
-                    <div className="hero-health-stars" aria-label={`Health rating: ${healthInsight.rating} stars`} role="img">
+                    <div className="hero-health-stars" aria-label={`Health rating: ${healthInsight.rating} out of 5 stars — ${healthInsight.label}`} role="img">
                       {[1, 2, 3, 4, 5].map((i) => (
                         <svg
                           key={i}
@@ -304,12 +312,12 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
             </div>
           </div>
 
-          {/* Right: Food Classification (xl only) */}
+          {/* Right: Food Classification (xl) */}
           <div className="results-panel-food">
             <div className="food-section">
               <div className="food-section-header">
                 <div className="food-icon" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
                     <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
                   </svg>
@@ -321,13 +329,14 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
           </div>
         </div>
 
-        {/* ── BOTTOM ROW: Macros + Tips/Food ──────────────────────── */}
+        {/* ── BOTTOM ROW ─────────────────────────────────── */}
         <div className="results-bottom-row">
+
           {/* Left: Macros */}
           <div className="macros-card animate-fadeUp">
             <div className="macros-header">
               <div className="macros-icon" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
                 </svg>
               </div>
@@ -346,14 +355,15 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
             </div>
           </div>
 
-          {/* Right: Tips + Food (mobile/tablet) */}
+          {/* Right: Tips + Food Classification */}
           <div className="results-panel-tips-food">
-            {/* Tips — tablet/mobile only */}
+
+            {/* Health Tips */}
             {healthInsight.tips.length > 0 && (
               <div className="tips-card animate-fadeUp animate-delay-100">
                 <div className="tips-header">
                   <div className="tips-icon" aria-hidden="true">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
                     </svg>
                   </div>
@@ -370,12 +380,12 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
               </div>
             )}
 
-            {/* Food Classification — tablet/mobile only */}
-            <div className="results-panel-food-mobile animate-fadeUp animate-delay-200">
+            {/* Food Classification — always shown in bottom-right panel */}
+            <div className="results-panel-food-mobile">
               <div className="food-section">
                 <div className="food-section-header">
                   <div className="food-icon" aria-hidden="true">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
                       <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
                     </svg>
