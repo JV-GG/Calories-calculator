@@ -32,12 +32,12 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
   return (
     <div className="history-shell">
       {/* Header */}
-      <header className="sticky top-0 z-sticky flex items-center justify-between px-5 py-4 bg-white border-b border-[#E2E8F0] safe-area-top lg:px-8">
+      <header className="history-header safe-area-top">
         <button
           type="button"
           onClick={onBack}
           aria-label="Go back"
-          className="w-11 h-11 flex items-center justify-center bg-[#F8FAFC] border-none rounded-xl text-[#0F172A] cursor-pointer transition-all duration-150 hover:bg-[#F1F5F9] active:scale-95"
+          className="w-11 h-11 flex items-center justify-center bg-white/10 border border-white/10 rounded-xl text-white cursor-pointer transition-all duration-150 hover:bg-white/20 active:scale-95"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
@@ -46,14 +46,14 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
 
         <div className="flex flex-col items-center gap-1">
           <img src={BitesAILogo} alt="" className="w-7 h-7 rounded-lg object-cover" aria-hidden="true" />
-          <h1 className="text-[#0F172A] text-base font-bold md:text-lg">Scan History</h1>
+          <h1 className="text-white text-base font-bold md:text-lg">Scan History</h1>
         </div>
 
         {history.length > 0 ? (
           <button
             type="button"
             onClick={onClear}
-            className="px-4 py-2 bg-transparent border border-[#E2E8F0] rounded-xl text-[#475569] text-sm font-semibold cursor-pointer transition-all duration-150 min-h-10 hover:bg-red-50 hover:border-red-500 hover:text-red-600 active:bg-red-100 md:text-base md:px-5"
+            className="px-4 py-2 bg-transparent border border-white/15 rounded-xl text-white/70 text-sm font-semibold cursor-pointer transition-all duration-150 min-h-10 hover:bg-red-500/20 hover:border-red-500/50 hover:text-red-400 active:bg-red-500/30 md:text-base md:px-5"
           >
             Clear
           </button>
@@ -69,10 +69,10 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
             <img
               src={BitesAILogo}
               alt="CalorieLens logo"
-              className="w-20 h-20 rounded-2xl object-cover opacity-70 mb-6"
+              className="w-20 h-20 rounded-2xl object-cover opacity-50 mb-6"
             />
-            <h2 className="text-[#0F172A] text-xl font-bold mb-2">No history yet</h2>
-            <p className="text-[#475569] text-sm leading-relaxed max-w-64">
+            <h2 className="text-white text-xl font-bold mb-2">No history yet</h2>
+            <p className="text-white/50 text-sm leading-relaxed max-w-64">
               Your scanned food will appear here for easy access
             </p>
           </div>
@@ -92,24 +92,24 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
                   <img
                     src={item.previewUrl}
                     alt={`Food from scan on ${formatDate(item.timestamp)}`}
-                    className="w-14 h-14 rounded-xl object-cover border border-[#E2E8F0] flex-shrink-0 md:w-16 md:h-16"
+                    className="w-14 h-14 rounded-xl object-cover border border-white/15 flex-shrink-0 md:w-16 md:h-16"
                     loading="lazy"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-center mb-0.5">
-                      <span className="text-[#94A3B8] text-xs">{formatDate(item.timestamp)}</span>
-                      <span className="text-blue-600 text-base font-bold flex-shrink-0 tabular-nums">
+                      <span className="text-white/40 text-xs">{formatDate(item.timestamp)}</span>
+                      <span className="text-blue-400 text-base font-bold flex-shrink-0 tabular-nums">
                         {item.analysis.totalCalories} kcal
                       </span>
                     </div>
-                    <p className="text-[#475569] text-sm leading-snug line-clamp-2">
+                    <p className="text-white/70 text-sm leading-snug line-clamp-2">
                       {item.analysis.items.slice(0, 3).map((i) => i.name).join(' · ')}
                       {item.analysis.items.length > 3 && ` +${item.analysis.items.length - 3}`}
                     </p>
                   </div>
                   <button
                     type="button"
-                    className="w-11 h-11 flex items-center justify-center bg-transparent border-none rounded-xl text-[#94A3B8] cursor-pointer transition-all duration-150 flex-shrink-0 hover:bg-red-50 hover:text-red-500 active:bg-red-100"
+                    className="w-11 h-11 flex items-center justify-center bg-transparent border-none rounded-xl text-white/30 cursor-pointer transition-all duration-150 flex-shrink-0 hover:bg-red-500/20 hover:text-red-400 active:bg-red-500/30"
                     onClick={(e) => { e.stopPropagation(); onDelete(item.id) }}
                     aria-label={`Delete record: ${item.analysis.totalCalories} kcal scan from ${formatDate(item.timestamp)}`}
                   >

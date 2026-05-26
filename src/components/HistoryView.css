@@ -1,16 +1,26 @@
-/* HistoryView — scoped styles */
+/* HistoryView — scoped styles (dark theme aligned with camera) */
 
 .history-shell {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 40;
-  height: 100%;
   /* Scrollable — use auto not hidden */
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: var(--color-bg);
+  background: var(--color-camera-bg);
   animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1) both;
+}
+
+.history-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 80% 20%, rgba(37,99,235,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(5,150,105,0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 @media (min-width: 1024px) {
@@ -20,6 +30,8 @@
 /* Desktop: constrained content */
 .history-content {
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 @media (min-width: 1024px) {
@@ -35,13 +47,41 @@
   }
 }
 
+/* ─── History Header ────────────────────────────────────────────── */
+.history-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.25rem;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+@media (min-width: 768px) {
+  .history-header {
+    padding: 1.25rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .history-header {
+    padding: 1.25rem 2rem;
+  }
+}
+
+/* ─── History Items ─────────────────────────────────────────────── */
 .history-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  padding: 0.875rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-lg);
   cursor: pointer;
   transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
@@ -58,9 +98,9 @@
 }
 
 .history-item:hover {
-  background: var(--color-surface);
+  background: rgba(255,255,255,0.10);
   transform: translateY(-2px);
-  box-shadow: var(--elevation-md);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .history-item:active {
