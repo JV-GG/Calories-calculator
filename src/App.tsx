@@ -170,6 +170,7 @@ function App() {
           analysis={analysis}
           previewUrl={previewUrl}
           onScanAgain={handleScanAgain}
+          onViewHistory={handleViewHistory}
         />
       )}
     </div>
