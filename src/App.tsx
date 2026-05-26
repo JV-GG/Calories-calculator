@@ -97,6 +97,16 @@ function App() {
     setShowHistory(true)
   }, [])
 
+  const handleBackToCamera = useCallback(() => {
+    setShowHistory(false)
+    setAnalysis(null)
+    setPreviewUrl('')
+    setImageBase64('')
+    setAnalyzeError(null)
+    setPhase('camera')
+    restart()
+  }, [restart])
+
   const handleSelectHistory = useCallback((item: ScanHistoryItem) => {
     setAnalysis(item.analysis)
     setPreviewUrl(item.previewUrl)
@@ -125,7 +135,7 @@ function App() {
           onSelect={handleSelectHistory}
           onDelete={handleDeleteHistory}
           onClear={handleClearHistory}
-          onBack={() => setShowHistory(false)}
+          onBack={handleBackToCamera}
         />
       )}
 
