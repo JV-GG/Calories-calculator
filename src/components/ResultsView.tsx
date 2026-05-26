@@ -6,7 +6,7 @@ interface ResultsViewProps {
   analysis: CalorieAnalysis
   previewUrl: string
   onScanAgain: () => void
-  onViewHistory: () => void
+  onBack: () => void
 }
 
 /* ─── Macro Ring SVG ─────────────────────────────────── */
@@ -100,7 +100,7 @@ function FoodCatRow({ cat, items, maxCal }: {
 }
 
 /* ─── Main Component ─────────────────────────────────── */
-export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }: ResultsViewProps) {
+export function ResultsView({ analysis, previewUrl, onScanAgain, onBack }: ResultsViewProps) {
   const { items, totalCalories, totalMacros, confidence, notes, healthInsight } = analysis
   const confLabel =
     confidence === 'high' ? 'High confidence' :
@@ -121,50 +121,63 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
 
   return (
     <div className="results-shell">
+      {/* Sticky header */}
+      <header className="results-header">
+        <button
+          type="button"
+          onClick={onBack}
+          aria-label="Go back to history"
+          className="results-back-btn"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"/>
+            <polyline points="12 19 5 12 12 5"/>
+          </svg>
+        </button>
+
+        <div className="results-header-title">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+          <span>Analysis</span>
+        </div>
+
+        <button
+          type="button"
+          onClick={onScanAgain}
+          aria-label="Scan another food item"
+          className="results-scan-again-btn"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10"/>
+            <polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+          <span className="results-scan-text">Scan Again</span>
+        </button>
+      </header>
+
       <div className="results-layout">
 
-        {/* ── TOP ROW ───────────────────────────────── */}
+        {/* ── Photo + Hero ─────────────────────────────── */}
         <div className="results-top-row">
 
-          {/* Photo + Actions */}
+          {/* Photo card */}
           <div className="photo-card">
             <img src={previewUrl} alt="Scanned food" />
             <div className="photo-overlay" />
-            <div className="photo-badge">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                <circle cx="12" cy="13" r="4"/>
-              </svg>
-              AI Analysis
-            </div>
-            <div className="photo-actions">
-              <div className="photo-meta">
-                <span className={`confidence ${confidence}`}>
-                  {confidence === 'high' && (
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                  )}
-                  {confLabel}
-                </span>
-                <button type="button" onClick={onViewHistory} className="history-btn" aria-label="View scan history">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                  </svg>
-                  History
-                </button>
-              </div>
-              <button type="button" onClick={onScanAgain} className="scan-btn" aria-label="Scan another food item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
-                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            <div className={`confidence ${confidence}`}>
+              {confidence === 'high' && (
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                Scan Again
-              </button>
+              )}
+              {confLabel}
             </div>
           </div>
 
-          {/* Hero */}
+          {/* Hero card */}
           <div className="hero-card">
             <p className="hero-label">Total Estimated Calories</p>
             <div className="hero-number">{totalCalories}</div>
@@ -186,74 +199,70 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
           </div>
         </div>
 
-        {/* ── BOTTOM ROW ─────────────────────────────── */}
-        <div className="results-bottom-row">
-
-          {/* Macros */}
-          <div className="macros-card animate-fadeUp">
-            <div className="card-header">
-              <div className="card-icon" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
-                </svg>
-              </div>
-              <div>
-                <div className="card-title">Macronutrients</div>
-                <div className="card-subtitle">Per serving</div>
-              </div>
+        {/* ── Macros ───────────────────────────────────── */}
+        <div className="macros-card animate-fadeUp">
+          <div className="card-header">
+            <div className="card-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
+              </svg>
             </div>
-            <div className="macros-ring-grid">
-              <MacroRing label="Protein" value={protein} max={80}  color="#A78BFA" />
-              <MacroRing label="Carbs"   value={carbs}   max={100} color="#60A5FA" />
-              <MacroRing label="Fat"     value={fat}     max={60}  color="#34D399" />
-              {fiber > 0 && <MacroRing label="Fiber" value={fiber} max={30} color="#38BDF8" />}
+            <div>
+              <div className="card-title">Macronutrients</div>
+              <div className="card-subtitle">Per serving</div>
             </div>
           </div>
-
-          {/* Food */}
-          <div className="food-card animate-fadeUp animate-delay-100">
-            <div className="card-header">
-              <div className="card-icon" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                  <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-                </svg>
-              </div>
-              <div>
-                <div className="card-title">Food Classification</div>
-                <div className="card-subtitle">{items.length} items detected</div>
-              </div>
-            </div>
-            <div className="food-card-body">
-              {Object.entries(byCat).map(([cat, catItems]) => (
-                <FoodCatRow key={cat} cat={cat as FoodCategory} items={catItems} maxCal={maxCal} />
-              ))}
-              {notes && <p className="food-notes">{notes}</p>}
-            </div>
+          <div className="macros-ring-grid">
+            <MacroRing label="Protein" value={protein} max={80}  color="#A78BFA" />
+            <MacroRing label="Carbs"   value={carbs}   max={100} color="#60A5FA" />
+            <MacroRing label="Fat"     value={fat}     max={60}  color="#34D399" />
+            {fiber > 0 && <MacroRing label="Fiber" value={fiber} max={30} color="#38BDF8" />}
           </div>
-
-          {/* Tips (tablet/mobile only — shown below food card) */}
-          {healthInsight.tips.length > 0 && (
-            <div className="tips-card animate-fadeUp animate-delay-200">
-              <div className="card-header">
-                <div className="card-icon" style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', color: '#34D399' }} aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
-                  </svg>
-                </div>
-                <div className="card-title">Health Insights</div>
-              </div>
-              <ul className="tips-list">
-                {healthInsight.tips.map((tip, i) => (
-                  <li key={i} className="tip-item">
-                    <span className="tip-dot" aria-hidden="true" />
-                    {tip}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
+
+        {/* ── Food Classification ───────────────────────── */}
+        <div className="food-card animate-fadeUp animate-delay-100">
+          <div className="card-header">
+            <div className="card-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <div>
+              <div className="card-title">Food Classification</div>
+              <div className="card-subtitle">{items.length} items detected</div>
+            </div>
+          </div>
+          <div className="food-card-body">
+            {Object.entries(byCat).map(([cat, catItems]) => (
+              <FoodCatRow key={cat} cat={cat as FoodCategory} items={catItems} maxCal={maxCal} />
+            ))}
+            {notes && <p className="food-notes">{notes}</p>}
+          </div>
+        </div>
+
+        {/* ── Health Insights (mobile) ──────────────────── */}
+        {healthInsight.tips.length > 0 && (
+          <div className="tips-card animate-fadeUp animate-delay-200">
+            <div className="card-header">
+              <div className="card-icon" style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', color: '#34D399' }} aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+                </svg>
+              </div>
+              <div className="card-title">Health Insights</div>
+            </div>
+            <ul className="tips-list">
+              {healthInsight.tips.map((tip, i) => (
+                <li key={i} className="tip-item">
+                  <span className="tip-dot" aria-hidden="true" />
+                  {tip}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
       </div>
     </div>
