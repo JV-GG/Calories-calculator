@@ -9,11 +9,12 @@ interface ResultsViewProps {
   onViewHistory: () => void
 }
 
-const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; textColor: string; icon: ReactNode }> = {
+const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; textColor: string; barColor: string; icon: ReactNode }> = {
   protein: {
     label: 'Protein',
-    bgColor: 'rgba(167, 139, 250, 0.15)',
+    bgColor: 'rgba(167, 139, 250, 0.12)',
     textColor: '#A78BFA',
+    barColor: '#7C3AED',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z"/>
@@ -23,8 +24,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   grains: {
     label: 'Grains',
-    bgColor: 'rgba(251, 191, 36, 0.15)',
+    bgColor: 'rgba(251, 191, 36, 0.12)',
     textColor: '#FBBF24',
+    barColor: '#D97706',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
@@ -33,8 +35,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   vegetables: {
     label: 'Vegetables',
-    bgColor: 'rgba(52, 211, 153, 0.15)',
+    bgColor: 'rgba(52, 211, 153, 0.12)',
     textColor: '#34D399',
+    barColor: '#059669',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M7 21h10"/><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9z"/>
@@ -43,8 +46,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   fruits: {
     label: 'Fruits',
-    bgColor: 'rgba(244, 114, 182, 0.15)',
+    bgColor: 'rgba(244, 114, 182, 0.12)',
     textColor: '#F472B6',
+    barColor: '#DB2777',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M17.5 12c0 4.4-3.6 8-8 8A4.5 4.5 0 0 1 5 15.5c0-6 8-12 8-12s4.5 3 4.5 8.5"/>
@@ -53,8 +57,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   dairy: {
     label: 'Dairy',
-    bgColor: 'rgba(251, 191, 36, 0.15)',
+    bgColor: 'rgba(251, 191, 36, 0.12)',
     textColor: '#FBBF24',
+    barColor: '#D97706',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M8 2h8l2 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6l2-4z"/><path d="M6 6h12"/>
@@ -63,8 +68,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   fats_oils: {
     label: 'Fats & Oils',
-    bgColor: 'rgba(251, 146, 60, 0.15)',
+    bgColor: 'rgba(251, 146, 60, 0.12)',
     textColor: '#FB923C',
+    barColor: '#EA580C',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -73,8 +79,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   beverages: {
     label: 'Beverages',
-    bgColor: 'rgba(56, 189, 248, 0.15)',
+    bgColor: 'rgba(56, 189, 248, 0.12)',
     textColor: '#38BDF8',
+    barColor: '#0284C7',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/>
@@ -83,8 +90,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   snacks: {
     label: 'Snacks',
-    bgColor: 'rgba(192, 132, 252, 0.15)',
+    bgColor: 'rgba(192, 132, 252, 0.12)',
     textColor: '#C084FC',
+    barColor: '#9333EA',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>
@@ -93,8 +101,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   condiments: {
     label: 'Condiments',
-    bgColor: 'rgba(156, 163, 175, 0.15)',
+    bgColor: 'rgba(156, 163, 175, 0.12)',
     textColor: '#9CA3AF',
+    barColor: '#6B7280',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 3v18"/><path d="M8 21h8"/><path d="M8 3h8"/>
@@ -103,8 +112,9 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
   mixed: {
     label: 'Mixed Dishes',
-    bgColor: 'rgba(96, 165, 250, 0.15)',
+    bgColor: 'rgba(96, 165, 250, 0.12)',
     textColor: '#60A5FA',
+    barColor: '#2563EB',
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
@@ -113,84 +123,83 @@ const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; te
   },
 }
 
-function MacroBar({ label, value, max, color }: {
-  label: string; value: number; max: number; color: string
+function MacroPill({ label, value, max, dotColor, fillClass }: {
+  label: string
+  value: number
+  max: number
+  dotColor: string
+  fillClass: string
 }) {
   const pct = Math.min((value / max) * 100, 100)
   return (
-    <div className="macro-item">
-      <div className="macro-item-header">
-        <span className="macro-item-label">
-          <span className="macro-dot" style={{ backgroundColor: color }} />
+    <div className={`macro-pill pill-${label.toLowerCase()}`}>
+      <div className="macro-pill-top">
+        <span className="macro-pill-name">
+          <span className="macro-pill-dot" style={{ backgroundColor: dotColor }} />
           {label}
         </span>
-        <span className="macro-item-value">{value}g</span>
+        <span className="macro-pill-value">
+          {value}
+          <span className="macro-pill-unit">g</span>
+        </span>
       </div>
-      <div className="macro-bar-track">
+      <div className="macro-pill-track">
         <div
-          className="macro-bar-fill"
-          style={{ width: `${pct}%`, backgroundColor: color }}
+          className={`macro-pill-fill ${fillClass}`}
+          style={{ width: `${pct}%` }}
         />
       </div>
     </div>
   )
 }
 
-function FoodClassification({ itemsByCategory }: {
-  itemsByCategory: Record<FoodCategory, Array<{
-    name: string
-    calories: number
-    portion?: string
-    macros?: { protein: number; carbs: number; fat: number }
-  }>>
+function FoodCategoryCard({ cat, catItems, maxCal }: {
+  cat: FoodCategory
+  catItems: Array<{ name: string; calories: number; portion?: string; macros?: { protein: number; carbs: number; fat: number } }>
+  maxCal: number
 }) {
+  const config = CATEGORY_CONFIG[cat] ?? CATEGORY_CONFIG.mixed
+  const categoryCalories = catItems.reduce((sum, i) => sum + i.calories, 0)
   return (
-    <>
-      {Object.entries(itemsByCategory).map(([cat, catItems]) => {
-        const config = CATEGORY_CONFIG[cat as FoodCategory] ?? CATEGORY_CONFIG.mixed
-        const categoryCalories = catItems.reduce((sum, i) => sum + i.calories, 0)
-        return (
-          <div
-            key={cat}
-            className="food-category"
-            style={{ borderLeftColor: config.textColor }}
-          >
-            <div
-              className="food-category-header"
-              style={{ backgroundColor: config.bgColor }}
-            >
-              <div
-                className="food-category-icon"
-                style={{ backgroundColor: config.textColor }}
-                aria-hidden="true"
-              >
-                {config.icon}
-              </div>
-              <span className="food-category-name" style={{ color: config.textColor }}>
-                {config.label}
-              </span>
-              <span className="food-category-cal" style={{ color: config.textColor }}>
-                {categoryCalories} kcal
-              </span>
-            </div>
-            {catItems.map((item, i) => (
-              <div key={`${item.name}-${i}`} className="food-item">
-                <div className="food-item-info">
-                  <div className="food-item-name">{item.name}</div>
-                  <div className="food-item-portion">{item.portion}</div>
+    <div className="food-category" style={{ borderTopColor: config.textColor }}>
+      <div className="food-category-header" style={{ backgroundColor: config.bgColor }}>
+        <div
+          className="food-category-icon"
+          style={{ backgroundColor: config.textColor }}
+          aria-hidden="true"
+        >
+          {config.icon}
+        </div>
+        <span className="food-category-name" style={{ color: config.textColor }}>
+          {config.label}
+        </span>
+        <span className="food-category-cal" style={{ color: config.textColor }}>
+          {categoryCalories} kcal
+        </span>
+      </div>
+      <ul className="food-items-list">
+        {catItems.map((item, i) => {
+          const pct = maxCal > 0 ? Math.min((item.calories / maxCal) * 100, 100) : 0
+          return (
+            <li key={`${item.name}-${i}`} className="food-item">
+              <div className="food-item-top">
+                <div className="food-item-left">
+                  <span className="food-item-name">{item.name}</span>
+                  <span className="food-item-portion">{item.portion}</span>
                 </div>
-                {item.macros && (
-                  <span className="food-item-macros">
-                    P{item.macros.protein} · C{item.macros.carbs} · F{item.macros.fat}
-                  </span>
-                )}
-                <span className="food-item-cal">{item.calories} kcal</span>
+                <span className="food-item-cal">{item.calories}</span>
               </div>
-            ))}
-          </div>
-        )
-      })}
-    </>
+              <div className="food-item-bar">
+                <div
+                  className="food-item-bar-fill"
+                  style={{ width: `${pct}%`, backgroundColor: config.barColor }}
+                />
+              </div>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
   )
 }
 
@@ -212,13 +221,17 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
   const totalFat = totalMacros.fat
   const totalFiber = totalMacros.fiber ?? 0
 
+  // For calorie bars, find the max calorie item
+  const maxItemCal = Math.max(...items.map(i => i.calories), 1)
+
   return (
     <div className="results-shell">
       <div className="results-layout">
+
         {/* ── TOP ROW ────────────────────────────────────── */}
         <div className="results-top-row">
 
-          {/* Left: Photo + Confidence/History + CTA in grid */}
+          {/* Left: Photo + Confidence/History + CTA */}
           <div className="results-panel-photo">
             <div className="results-photo-card">
               <img src={previewUrl} alt="Scanned food" />
@@ -265,7 +278,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
             </div>
           </div>
 
-          {/* Center: Hero Calorie Card */}
+          {/* Center: Hero Calorie */}
           <div className="results-panel-hero">
             <div className="hero-card">
               <div className="hero-card-inner">
@@ -324,7 +337,14 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
                 </div>
                 <h3 className="food-title">Food Classification</h3>
               </div>
-              <FoodClassification itemsByCategory={itemsByCategory} />
+              {Object.entries(itemsByCategory).map(([cat, catItems]) => (
+                <FoodCategoryCard
+                  key={cat}
+                  cat={cat as FoodCategory}
+                  catItems={catItems}
+                  maxCal={maxItemCal}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -332,7 +352,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
         {/* ── BOTTOM ROW ─────────────────────────────────── */}
         <div className="results-bottom-row">
 
-          {/* Left: Macros */}
+          {/* Left: Macros — Premium pill design */}
           <div className="macros-card animate-fadeUp">
             <div className="macros-header">
               <div className="macros-icon" aria-hidden="true">
@@ -346,11 +366,11 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
               </div>
             </div>
             <div className="macros-grid">
-              <MacroBar label="Protein" value={totalProtein} max={80} color="#A78BFA" />
-              <MacroBar label="Carbs" value={totalCarbs} max={100} color="#60A5FA" />
-              <MacroBar label="Fat" value={totalFat} max={60} color="#34D399" />
+              <MacroPill label="Protein" value={totalProtein} max={80} dotColor="#A78BFA" fillClass="fill-protein" />
+              <MacroPill label="Carbs" value={totalCarbs} max={100} dotColor="#60A5FA" fillClass="fill-carbs" />
+              <MacroPill label="Fat" value={totalFat} max={60} dotColor="#34D399" fillClass="fill-fat" />
               {totalFiber > 0 && (
-                <MacroBar label="Fiber" value={totalFiber} max={30} color="#38BDF8" />
+                <MacroPill label="Fiber" value={totalFiber} max={30} dotColor="#38BDF8" fillClass="fill-fiber" />
               )}
             </div>
           </div>
@@ -380,7 +400,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
               </div>
             )}
 
-            {/* Food Classification — always shown in bottom-right panel */}
+            {/* Food Classification — bottom panel */}
             <div className="results-panel-food-mobile">
               <div className="food-section">
                 <div className="food-section-header">
@@ -392,11 +412,16 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
                   </div>
                   <h3 className="food-title">Food Classification</h3>
                 </div>
-                <FoodClassification itemsByCategory={itemsByCategory} />
+                {Object.entries(itemsByCategory).map(([cat, catItems]) => (
+                  <FoodCategoryCard
+                    key={cat}
+                    cat={cat as FoodCategory}
+                    catItems={catItems}
+                    maxCal={maxItemCal}
+                  />
+                ))}
               </div>
-              {notes && (
-                <p className="results-notes">{notes}</p>
-              )}
+              {notes && <p className="results-notes">{notes}</p>}
             </div>
           </div>
         </div>
