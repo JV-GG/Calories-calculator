@@ -1,4 +1,4 @@
-/* LoadingOverlay — scoped keyframes only */
+/* LoadingOverlay — Flat design, geometric rings */
 
 .loading-overlay {
   position: fixed;
@@ -10,28 +10,21 @@
   justify-content: center;
   gap: 1.5rem;
   background: var(--color-camera-bg);
-  animation: fadeIn 0.25s ease;
+  animation: fadeIn 0.15s ease forwards;
 }
 
-@media (min-width: 1024px) {
-  .loading-overlay { border-radius: 28px; }
-}
+@media (min-width: 1024px) { .loading-overlay { border-radius: var(--radius-xl); } }
 
 .loading-logo {
   width: 4.5rem;
   height: 4.5rem;
-  border-radius: 1.25rem;
+  border-radius: var(--radius-lg);
   object-fit: cover;
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 1.8s ease-in-out infinite;
 }
 
-@media (min-width: 768px) {
-  .loading-logo { width: 5rem; height: 5rem; }
-}
-
-@media (min-width: 1024px) {
-  .loading-logo { width: 5.5rem; height: 5.5rem; }
-}
+@media (min-width: 768px) { .loading-logo { width: 5rem; height: 5rem; } }
+@media (min-width: 1024px) { .loading-logo { width: 5.5rem; height: 5.5rem; } }
 
 .loading-animation {
   position: relative;
@@ -39,32 +32,30 @@
   height: 3rem;
 }
 
-@media (min-width: 768px) {
-  .loading-animation { width: 3.25rem; height: 3.25rem; }
-}
+@media (min-width: 768px) { .loading-animation { width: 3.5rem; height: 3.5rem; } }
+@media (min-width: 1024px) { .loading-animation { width: 4rem; height: 4rem; } }
 
-@media (min-width: 1024px) {
-  .loading-animation { width: 3.5rem; height: 3.5rem; }
-}
-
+/* Flat: solid ring with color fill, no border gradients */
 .loading-ring {
   position: absolute;
   inset: 0;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  border: 3px solid rgba(255,255,255,0.15);
   border-top-color: white;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
 .loading-ring:nth-child(2) {
-  inset: 6px;
-  border-top-color: #2563EB;
+  inset: 5px;
+  border-top-color: var(--color-primary);
+  border-right-color: var(--color-primary);
   animation-duration: 0.8s;
   animation-direction: reverse;
 }
 
 .loading-ring:nth-child(3) {
-  inset: 12px;
-  border-top-color: #10B981;
+  inset: 10px;
+  border-top-color: var(--color-accent);
+  border-left-color: var(--color-accent);
   animation-duration: 1.2s;
 }

@@ -11,12 +11,15 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
   return (
     <div className="preview-shell">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-5 border-b border-[#E2E8F0] bg-white safe-area-top">
+      <header
+        className="flex items-center justify-between px-6 py-5 border-b border-[var(--color-border)] bg-[var(--color-bg)] safe-area-top"
+        style={{ fontFamily: 'var(--font-family-sans)' }}
+      >
         <button
           type="button"
           onClick={onRetake}
           aria-label="Retake photo"
-          className="w-11 h-11 flex items-center justify-center bg-[#F8FAFC] border-none rounded-xl text-[#0F172A] cursor-pointer transition-all duration-150 hover:bg-[#F1F5F9] active:scale-95"
+          className="w-11 h-11 flex items-center justify-center bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl text-[var(--color-text)] cursor-pointer transition-colors duration-150 active:bg-[var(--color-surface-hover)] active:scale-[0.97]"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
@@ -24,9 +27,9 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
         </button>
 
         <div className="flex-1 text-center">
-          <img src={BitesAILogo} alt="" className="w-8 h-8 rounded-lg object-cover mx-auto mb-1" />
-          <h2 className="text-[#0F172A] text-lg font-bold">Confirm Photo</h2>
-          <p className="text-[#475569] text-xs mt-0.5">Ready to analyze when you are</p>
+          <img src={BitesAILogo} alt="" className="w-8 h-8 rounded-lg object-cover mx-auto mb-1 border border-[var(--color-border)]" />
+          <h2 className="text-[var(--color-foreground)] font-heading text-lg font-bold" style={{ fontFamily: 'var(--font-family-heading)' }}>Confirm Photo</h2>
+          <p className="text-[var(--color-text-muted)] text-xs mt-0.5">Ready to analyze when you are</p>
         </div>
 
         <div className="w-11" />
@@ -41,12 +44,13 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
         />
       </div>
 
-      {/* Actions */}
-      <div className="flex gap-3 px-5 py-5 border-t border-[#E2E8F0] bg-white safe-area-bottom">
+      {/* Actions — flat buttons, no shadows */}
+      <div className="flex gap-3 px-5 py-5 border-t border-[var(--color-border)] bg-[var(--color-bg)] safe-area-bottom">
         <button
           type="button"
           onClick={onRetake}
-          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-[#F8FAFC] border border-[#E2E8F0] text-[#0F172A] rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.97]"
+          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text)] rounded-xl font-semibold text-sm transition-colors duration-150 active:bg-[var(--color-surface-hover)] active:scale-[0.97] cursor-pointer"
+          style={{ fontFamily: 'var(--font-family-sans)' }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
@@ -56,7 +60,8 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
         <button
           type="button"
           onClick={onAnalyze}
-          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-[#2563EB] text-white rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.97] active:bg-[#1D4ED8]"
+          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-sm transition-colors duration-150 active:bg-[var(--color-primary-hover)] active:scale-[0.97] cursor-pointer"
+          style={{ fontFamily: 'var(--font-family-sans)' }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>

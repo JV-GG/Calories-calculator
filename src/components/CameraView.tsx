@@ -43,8 +43,7 @@ export function CameraView({
         }
         reader.readAsDataURL(file)
       }
-    } catch (err) {
-      console.error('Image processing error:', err)
+    } catch {
       alert('Failed to process image. Please try again.')
     } finally {
       setIsConverting(false)
@@ -64,14 +63,17 @@ export function CameraView({
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-5 safe-area-top relative z-10 animate-fadeUp">
         <div className="flex items-center gap-3">
-          <img
-            src={BitesAILogo}
-            alt="CalorieLens"
-            className="w-12 h-12 rounded-2xl object-cover bg-white/10 border border-white/20 transition-transform duration-200 cursor-pointer hover:scale-105 active:scale-95"
-          />
+          {/* Flat logo — solid bg, no blur */}
+          <div className="w-12 h-12 rounded-2xl overflow-hidden bg-[var(--color-primary)] flex items-center justify-center cursor-pointer transition-transform duration-150 active:scale-95">
+            <img src={BitesAILogo} alt="CalorieLens" className="w-full h-full object-cover" />
+          </div>
           <div>
-            <h1 className="text-white text-xl font-bold tracking-tight leading-none">CalorieLens</h1>
-            <p className="text-white/60 text-xs font-medium tracking-wide mt-0.5">Snap · Estimate · Eat smarter</p>
+            <h1 className="text-white font-heading text-xl font-bold tracking-tight leading-none" style={{ fontFamily: 'var(--font-family-heading)' }}>
+              CalorieLens
+            </h1>
+            <p className="text-white/60 text-xs font-sans font-medium tracking-wide mt-0.5" style={{ fontFamily: 'var(--font-family-sans)' }}>
+              Snap · Estimate · Eat smarter
+            </p>
           </div>
         </div>
 
@@ -80,7 +82,8 @@ export function CameraView({
             type="button"
             onClick={onHistory}
             aria-label="View history"
-            className="flex items-center gap-2 px-4 py-2.5 bg-white/10 border border-white/15 rounded-xl text-white text-sm font-semibold transition-all duration-150 min-h-11 hover:bg-white/20 active:scale-[0.97]"
+            className="flex items-center gap-2 px-4 py-2.5 bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.2)] rounded-xl text-white text-sm font-semibold transition-colors duration-150 min-h-11 active:scale-[0.97] cursor-pointer"
+            style={{ fontFamily: 'var(--font-family-sans)' }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
@@ -110,11 +113,11 @@ export function CameraView({
                   <circle cx="12" cy="13" r="4"/>
                 </svg>
               </div>
-              <p className="text-white/90 text-sm font-medium text-center max-w-64">
+              <p className="text-white/90 text-sm font-medium text-center max-w-64" style={{ fontFamily: 'var(--font-family-sans)' }}>
                 {cameraError || 'Starting camera...'}
               </p>
               {cameraError && (
-                <p className="text-white/60 text-xs text-center max-w-64">
+                <p className="text-white/60 text-xs text-center max-w-64" style={{ fontFamily: 'var(--font-family-sans)' }}>
                   Tap Gallery below to upload a photo
                 </p>
               )}
@@ -128,14 +131,18 @@ export function CameraView({
                   <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
                 </svg>
               </div>
-              <p className="text-white/90 text-sm font-medium text-center max-w-64">Converting image...</p>
+              <p className="text-white/90 text-sm font-medium text-center max-w-64" style={{ fontFamily: 'var(--font-family-sans)' }}>
+                Converting image...
+              </p>
             </div>
           )}
 
           <div className="viewfinder-overlay" aria-hidden="true">
             <div className="viewfinder-frame" />
             {ready && !isConverting && (
-              <div className="viewfinder-hint">Position food within frame</div>
+              <div className="viewfinder-hint" style={{ fontFamily: 'var(--font-family-sans)' }}>
+                Position food within frame
+              </div>
             )}
           </div>
         </div>
@@ -146,48 +153,49 @@ export function CameraView({
         {/* Gallery */}
         <button
           type="button"
-          className="flex flex-col items-center justify-center gap-2 min-w-16 bg-transparent border-none text-white cursor-pointer transition-transform duration-150 active:scale-90 disabled:opacity-50"
+          className="flex flex-col items-center justify-center gap-2 min-w-16 bg-transparent border-none text-white cursor-pointer transition-transform duration-100 active:scale-90 disabled:opacity-40"
           onClick={handleGalleryClick}
           disabled={isConverting}
           aria-label="Select from gallery"
         >
-          <div className="w-14 h-14 flex items-center justify-center bg-white/10 border border-white/20 rounded-2xl transition-all duration-150 hover:bg-white/20 hover:scale-105">
+          {/* Flat icon container — solid color block */}
+          <div className="w-14 h-14 flex items-center justify-center bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.2)] rounded-2xl transition-colors duration-150 active:bg-[rgba(255,255,255,0.2)]">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
               <circle cx="8.5" cy="8.5" r="1.5"/>
               <polyline points="21 15 16 10 5 21"/>
             </svg>
           </div>
-          <span className="text-white/70 text-xs font-bold uppercase tracking-widest">Gallery</span>
+          <span className="text-white/70 text-xs font-bold uppercase tracking-widest" style={{ fontFamily: 'var(--font-family-sans)' }}>Gallery</span>
         </button>
 
-        {/* Snap */}
+        {/* Snap — flat, immediate press feedback */}
         <button
           type="button"
-          className="relative w-[76px] h-[76px] bg-transparent border-none cursor-pointer transition-transform duration-150 active:scale-90 disabled:opacity-40"
+          className="relative w-[72px] h-[72px] bg-transparent border-none cursor-pointer transition-transform duration-100 active:scale-90 disabled:opacity-40"
           onClick={onSnap}
           disabled={!ready || isConverting}
           aria-label="Take photo"
           aria-busy={!ready}
         >
           <div className="absolute inset-0 border-[3px] border-white rounded-full" />
-          <div className="absolute inset-2 bg-white rounded-full transition-all duration-150 active:bg-[#2563EB] active:inset-3" />
+          <div className="absolute inset-[8px] bg-white rounded-full transition-all duration-100 active:bg-[var(--color-primary)] active:inset-[10px]" />
         </button>
 
         {/* History */}
         <button
           type="button"
-          className="flex flex-col items-center justify-center gap-2 min-w-16 bg-transparent border-none text-white cursor-pointer transition-transform duration-150 active:scale-90 disabled:opacity-50"
+          className="flex flex-col items-center justify-center gap-2 min-w-16 bg-transparent border-none text-white cursor-pointer transition-transform duration-100 active:scale-90 disabled:opacity-40"
           onClick={onHistory}
           disabled={isConverting}
           aria-label="View history"
         >
-          <div className="w-14 h-14 flex items-center justify-center bg-white/10 border border-white/20 rounded-2xl transition-all duration-150 hover:bg-white/20 hover:scale-105">
+          <div className="w-14 h-14 flex items-center justify-center bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.2)] rounded-2xl transition-colors duration-150 active:bg-[rgba(255,255,255,0.2)]">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
             </svg>
           </div>
-          <span className="text-white/70 text-xs font-bold uppercase tracking-widest">History</span>
+          <span className="text-white/70 text-xs font-bold uppercase tracking-widest" style={{ fontFamily: 'var(--font-family-sans)' }}>History</span>
         </button>
       </div>
 

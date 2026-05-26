@@ -1,68 +1,85 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-bg: #FFFFFF;
-  --color-surface: #F8FAFC;
-  --color-surface-hover: #F1F5F9;
-  --color-border: #E2E8F0;
+  /* ─── Color Palette — CalorieLens Health/Wellness ──────────────── */
+  /* Primary: Calming purple — trust, calm, wellness */
+  --color-primary:        #8B5CF6;
+  --color-primary-hover:  #7C3AED;
+  --color-primary-light:  rgba(139, 92, 246, 0.12);
+  --color-on-primary:     #FFFFFF;
 
-  --color-text: #0F172A;
-  --color-text-muted: #475569;
-  --color-text-subtle: #94A3B8;
+  /* Accent / CTA: Wellness green — health, vitality */
+  --color-accent:         #059669;
+  --color-accent-hover:   #047857;
+  --color-accent-light:   rgba(5, 150, 105, 0.12);
 
-  --color-primary: #2563EB;
-  --color-primary-hover: #1D4ED8;
+  /* Backgrounds */
+  --color-bg:             #FFFFFF;
+  --color-surface:        #FAF5FF;   /* lavender tint — calm, clean */
+  --color-surface-hover:  #EDE9FE;
 
-  --color-danger: #DC2626;
-  --color-danger-light: rgba(220, 38, 38, 0.1);
+  /* Foreground / Text */
+  --color-foreground:     #4C1D95;   /* deep purple — headings */
+  --color-text:           #1E1B4B;   /* deep navy-purple — body */
+  --color-text-muted:     #6B7280;    /* secondary text */
+  --color-text-subtle:    #9CA3AF;   /* tertiary / captions */
 
-  --color-success: #059669;
-  --color-success-light: rgba(5, 150, 105, 0.1);
+  /* Borders */
+  --color-border:         #EDE9FE;
+  --color-border-strong:  #C4B5FD;
 
-  --color-camera-bg: #0F172A;
-  --color-camera-overlay: rgba(0, 0, 0, 0.5);
+  /* Semantic */
+  --color-danger:         #DC2626;
+  --color-danger-light:   rgba(220, 38, 38, 0.10);
+  --color-warning:        #D97706;
+  --color-warning-light:  rgba(217, 119, 6, 0.12);
 
-  --color-protein: #8B5CF6;
-  --color-carbs: #2563EB;
-  --color-fat: #059669;
-  --color-fiber: #0284C7;
+  /* Camera / dark surfaces */
+  --color-camera-bg:      #0F172A;
+  --color-camera-overlay: rgba(0, 0, 0, 0.45);
 
-  --color-grains: #D97706;
-  --color-fruits: #DB2777;
-  --color-dairy: #F59E0B;
-  --color-fats-oils: #EA580C;
-  --color-beverages: #0284C7;
-  --color-snacks: #9333EA;
-  --color-condiments: #4B5563;
-  --color-mixed: #2563EB;
+  /* Macro / category colors */
+  --color-protein:  #8B5CF6;
+  --color-carbs:    #2563EB;
+  --color-fat:      #059669;
+  --color-fiber:    #0284C7;
+  --color-grains:   #D97706;
+  --color-fruits:   #DB2777;
+  --color-dairy:    #F59E0B;
+  --color-fats-oils:#EA580C;
+  --color-beverages:#0284C7;
+  --color-snacks:   #9333EA;
+  --color-condiments:#4B5563;
+  --color-mixed:    #2563EB;
 
-  /* Border Radius */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --radius-2xl: 1.5rem;
-  --radius-full: 9999px;
+  /* ─── Border Radius — Flat Design (minimal rounding) ───────────── */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-full:  9999px;
 
-  /* Font */
-  --font-family-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  /* ─── Typography ────────────────────────────────────────────────── */
+  /* Headings: Lora — calm, wellness, organic */
+  /* Body: Raleway — modern, clean, professional */
+  --font-family-heading: 'Lora', Georgia, serif;
+  --font-family-sans:    'Raleway', system-ui, sans-serif;
 }
 
-/* ─── Keyframes ─────────────────────────────────────────────────── */
+/* ─── Keyframes ──────────────────────────────────────────────────── */
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(1rem); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(0.75rem); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideUp {
   from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  to   { transform: translateY(0); }
 }
 
 @keyframes spin {
@@ -71,26 +88,32 @@
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  50%       { opacity: 0.5; }
 }
 
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-/* ─── Animations ────────────────────────────────────────────────── */
-.animate-fadeIn { animation: fadeIn 0.25s ease; }
-.animate-fadeUp { animation: fadeUp 0.4s ease-out; }
-.animate-slideUp { animation: slideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1); }
-.animate-spin { animation: spin 1s linear infinite; }
-.animate-spin-reverse { animation: spin 0.8s linear infinite reverse; }
-.animate-spin-slow { animation: spin 1.2s linear infinite; }
-.animate-pulse { animation: pulse 2s ease-in-out infinite; }
-.animate-scaleIn { animation: scaleIn 0.3s ease-out; }
+/* ─── Animation Classes (150-300ms per UX guidelines) ─────────────── */
+.animate-fadeIn    { animation: fadeIn 0.15s ease forwards; }
+.animate-fadeUp    { animation: fadeUp 0.2s ease-out forwards; }
+.animate-slideUp   { animation: slideUp 0.2s cubic-bezier(0.32, 0.72, 0, 1) forwards; }
+.animate-spin      { animation: spin 1s linear infinite; }
+.animate-pulse     { animation: pulse 1.8s ease-in-out infinite; }
+.animate-shimmer   {
+  background: linear-gradient(90deg, #EDE9FE 25%, #FAF5FF 50%, #EDE9FE 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease infinite;
+}
 
-/* ─── Body / Layout ─────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ─── Global Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html, body, #root {
   height: 100%;
@@ -98,13 +121,14 @@ html, body, #root {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
-  background: var(--color-bg);
   color: var(--color-text);
+  background: var(--color-surface);
 }
 
-/* Mobile-first: plain white background */
+/* ─── Body / Layout ───────────────────────────────────────────────── */
+/* Mobile: lavender surface */
 body {
-  background: var(--color-bg);
+  background: var(--color-surface);
 }
 
 /* Tablet */
@@ -122,7 +146,7 @@ body {
 /* Desktop */
 @media (min-width: 1024px) {
   body {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -131,16 +155,23 @@ body {
   }
 }
 
-/* ─── Utilities ─────────────────────────────────────────────────── */
-.safe-area-top { padding-top: env(safe-area-inset-top); }
-.safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
+/* ─── Utility Classes ─────────────────────────────────────────────── */
 @layer utilities {
-  .font-sans { font-family: var(--font-family-sans); }
+  .font-heading { font-family: var(--font-family-heading); }
+  .font-body    { font-family: var(--font-family-sans); }
+
+  .safe-area-top    { padding-top: env(safe-area-inset-top); }
+  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+  /* Flat design: no shadows */
+  .elevation-0 { box-shadow: none; }
 }
 
+/* Hide scrollbars everywhere */
+::-webkit-scrollbar       { display: none; }
+.no-scrollbar            { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── Accessibility: Reduced Motion ────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -149,8 +180,8 @@ body {
   }
 }
 
-/* ─── Scrollbar ─────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--color-surface); }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+/* ─── Scrollbar (only visible when scrolling is enabled) ─────────── */
+.scrollbar-thin::-webkit-scrollbar       { width: 4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: var(--color-surface); }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #C4B5FD; border-radius: 2px; }
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #8B5CF6; }
