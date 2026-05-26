@@ -1,3 +1,18 @@
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .app-root {
   position: relative;
   height: 100%;
@@ -5,39 +20,21 @@
   max-width: 430px;
   margin: 0 auto;
   overflow-y: auto;
-  background: #FFFFFF;
+  background: var(--color-bg);
   box-shadow: 0 16px 48px rgba(15, 23, 42, 0.16);
 }
 
 @media (min-width: 768px) {
-  body {
-    background: #F8FAFC;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 1rem;
-  }
-
   .app-root {
     max-width: 480px;
-    border-radius: 24px;
+    border-radius: var(--radius-2xl);
     height: auto;
     min-height: 600px;
-    max-height: calc(100vh - 2rem);
+    max-height: calc(100vh - 1rem);
   }
 }
 
 @media (min-width: 1024px) {
-  body {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
-
   .app-root {
     max-width: 520px;
     height: auto;
@@ -52,5 +49,25 @@
   .app-root {
     max-width: 560px;
     min-height: 750px;
+  }
+}
+
+/* Mobile-only container for centering body background */
+@media (min-width: 768px) {
+  :global(body) {
+    background: var(--color-surface) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+    padding: 1rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  :global(body) {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
+    min-height: 100vh !important;
+    padding: 2rem !important;
   }
 }

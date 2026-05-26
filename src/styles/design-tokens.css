@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-bg: #FFFFFF;
+  --color-surface: #F8FAFC;
+  --color-surface-hover: #F1F5F9;
+  --color-border: #E2E8F0;
+
+  --color-text: #0F172A;
+  --color-text-muted: #475569;
+  --color-text-subtle: #94A3B8;
+
+  --color-primary: #2563EB;
+  --color-primary-hover: #1D4ED8;
+
+  --color-danger: #DC2626;
+  --color-danger-light: rgba(220, 38, 38, 0.1);
+
+  --color-success: #059669;
+  --color-success-light: rgba(5, 150, 105, 0.1);
+
+  --color-camera-bg: #0F172A;
+  --color-camera-overlay: rgba(0, 0, 0, 0.5);
+
+  --color-protein: #8B5CF6;
+  --color-carbs: #2563EB;
+  --color-fat: #059669;
+  --color-fiber: #0284C7;
+
+  --color-grains: #D97706;
+  --color-fruits: #DB2777;
+  --color-dairy: #F59E0B;
+  --color-fats-oils: #EA580C;
+  --color-beverages: #0284C7;
+  --color-snacks: #9333EA;
+  --color-condiments: #4B5563;
+  --color-mixed: #2563EB;
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.25rem;
+  --spacing-2xl: 1.5rem;
+  --spacing-3xl: 2rem;
+  --spacing-4xl: 2.5rem;
+
+  /* Font */
+  --font-family-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ─── Animations ────────────────────────────────────────────────── */
+.animate-fadeIn { animation: fadeIn 0.25s ease; }
+.animate-fadeUp { animation: fadeUp 0.4s ease-out; }
+.animate-slideUp { animation: slideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1); }
+.animate-spin { animation: spin 1s linear infinite; }
+.animate-spin-reverse { animation: spin 0.8s linear infinite reverse; }
+.animate-spin-slow { animation: spin 1.2s linear infinite; }
+.animate-pulse { animation: pulse 2s ease-in-out infinite; }
+.animate-scaleIn { animation: scaleIn 0.3s ease-out; }
+
+/* ─── Utility ────────────────────────────────────────────────────── */
+@layer utilities {
+  .font-sans { font-family: var(--font-family-sans); }
+  .safe-area-top { padding-top: env(safe-area-inset-top); }
+  .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #F8FAFC; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
