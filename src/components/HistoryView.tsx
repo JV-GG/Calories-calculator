@@ -1,5 +1,6 @@
 import type { ScanHistoryItem } from '../../shared/types.js'
 import BitesAILogo from '../../BitesAI.png'
+import './HistoryView.css'
 
 interface HistoryViewProps {
   history: ScanHistoryItem[]

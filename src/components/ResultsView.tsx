@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react'
 import type { CalorieAnalysis, FoodCategory } from '../../shared/types.js'
 import BitesAILogo from '../../BitesAI.png'
+import './ResultsView.css'
 
 interface ResultsViewProps {
   analysis: CalorieAnalysis

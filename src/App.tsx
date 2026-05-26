@@ -7,6 +7,7 @@ import { LoadingOverlay } from './components/LoadingOverlay'
 import { useCamera } from './hooks/useCamera'
 import { analyzeFoodImage } from './lib/api'
 import type { AppPhase, CalorieAnalysis, ScanHistoryItem } from '../shared/types.js'
+import './components/App.css'
 
 const HISTORY_KEY = 'calorielens_history'
 const MAX_HISTORY = 50

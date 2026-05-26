@@ -1,0 +1,376 @@
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.history-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  height: 100%;
+  overflow-y: auto;
+  background: #FFFFFF;
+  animation: slide-up 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (min-width: 1024px) {
+  .history-shell {
+    animation: fade-in 0.3s ease;
+  }
+}
+
+.history-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  padding-top: calc(1.25rem + env(safe-area-inset-top));
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+@media (min-width: 768px) {
+  .history-header {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .history-header {
+    padding: 2rem 2.5rem;
+  }
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: #F8FAFC;
+  border: none;
+  border-radius: 12px;
+  color: #0F172A;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.back-btn:hover {
+  background: #F1F5F9;
+}
+
+.back-btn:active {
+  background: #F1F5F9;
+  transform: scale(0.95);
+}
+
+@media (min-width: 768px) {
+  .back-btn {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .back-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.history-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.history-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.history-header h1 {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .history-header h1 {
+    font-size: 1.15rem;
+  }
+}
+
+.clear-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 40px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.clear-btn:hover {
+  background: rgba(220, 38, 38, 0.05);
+  border-color: #DC2626;
+  color: #DC2626;
+}
+
+.clear-btn:active {
+  background: rgba(220, 38, 38, 0.1);
+  color: #DC2626;
+  border-color: #DC2626;
+}
+
+@media (min-width: 768px) {
+  .clear-btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.85rem;
+  }
+}
+
+.history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+  text-align: center;
+  animation: fade-up 0.4s ease-out;
+}
+
+.empty-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+@media (min-width: 1024px) {
+  .empty-logo {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.empty-title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+@media (min-width: 1024px) {
+  .empty-title {
+    font-size: 1.3rem;
+  }
+}
+
+.empty-text {
+  font-size: 0.9rem;
+  color: #475569;
+  max-width: 260px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .empty-text {
+    font-size: 1rem;
+    max-width: 320px;
+  }
+}
+
+.history-list {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .history-list {
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .history-list {
+    padding: 1.5rem 2.5rem;
+  }
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  width: 100%;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.history-item:hover {
+  background: #F8FAFC;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.history-item:active {
+  background: #F8FAFC;
+  transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .history-item {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+}
+
+.history-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #E2E8F0;
+}
+
+@media (min-width: 1024px) {
+  .history-thumb {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.history-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.history-date {
+  font-size: 0.75rem;
+  color: #94A3B8;
+}
+
+.history-calories {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2563EB;
+}
+
+.history-foods {
+  font-size: 0.85rem;
+  color: #475569;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.history-delete:hover {
+  background: rgba(220, 38, 38, 0.1);
+  color: #DC2626;
+}
+
+.history-delete:active {
+  background: rgba(220, 38, 38, 0.1);
+  color: #DC2626;
+}
+
+@media (min-width: 768px) {
+  .history-delete {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+.error-banner {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom) + 5rem);
+  left: 1.25rem;
+  right: 1.25rem;
+  padding: 0.85rem 1rem;
+  background: #DC2626;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 50;
+  text-align: center;
+  animation: fade-up 0.25s ease;
+}
+
+@media (min-width: 768px) {
+  .error-banner {
+    left: 2rem;
+    right: 2rem;
+    max-width: 556px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .error-banner {
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 500px;
+  }
+}

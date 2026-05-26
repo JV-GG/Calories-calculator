@@ -1,0 +1,125 @@
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #0F172A;
+  animation: fade-in 0.25s ease;
+}
+
+@media (min-width: 1024px) {
+  .loading-overlay {
+    border-radius: 28px;
+  }
+}
+
+.loading-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  object-fit: cover;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .loading-logo {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .loading-logo {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+.loading-animation {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+@media (min-width: 768px) {
+  .loading-animation {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .loading-animation {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.loading-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-ring:nth-child(2) {
+  inset: 6px;
+  border-top-color: #2563EB;
+  animation-duration: 0.8s;
+  animation-direction: reverse;
+}
+
+.loading-ring:nth-child(3) {
+  inset: 12px;
+  border-top-color: #10B981;
+  animation-duration: 1.2s;
+}
+
+.loading-text {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .loading-text {
+    font-size: 1.1rem;
+  }
+}
+
+.loading-subtext {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .loading-subtext {
+    font-size: 0.85rem;
+  }
+}

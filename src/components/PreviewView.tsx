@@ -1,4 +1,5 @@
 import BitesAILogo from '../../BitesAI.png'
+import './PreviewView.css'
 
 interface PreviewViewProps {
   previewUrl: string

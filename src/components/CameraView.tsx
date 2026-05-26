@@ -2,6 +2,7 @@ import { useRef, useCallback, useState } from 'react'
 import type { RefObject } from 'react'
 import BitesAILogo from '../../BitesAI.png'
 import { convertHeicToJpeg, isHeicFile } from '../lib/imageConversion'
+import './CameraView.css'
 
 interface CameraViewProps {
   videoRef: RefObject<HTMLVideoElement | null>

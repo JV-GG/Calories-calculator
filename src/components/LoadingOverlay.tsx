@@ -1,4 +1,5 @@
 import BitesAILogo from '../../BitesAI.png'
+import './LoadingOverlay.css'
 
 export function LoadingOverlay() {
   return (
