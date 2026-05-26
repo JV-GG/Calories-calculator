@@ -67,7 +67,7 @@ export function parseAnalysisResponse(text: string): CalorieAnalysis {
     parsed = JSON.parse(jsonMatch[0])
   } catch (err) {
     console.error('JSON parse error:', err, 'Raw text:', text.substring(0, 500))
-    throw new Error('Failed to parse food analysis. Please try again.', { cause: err })
+    throw new Error('Failed to parse food analysis. Please try again.')
   }
 
   if (!Array.isArray(parsed.items) || parsed.items.length === 0) {
