@@ -1607,6 +1607,12 @@ body {
   animation: slide-up 0.3s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+@media (min-width: 1024px) {
+  .history-shell {
+    animation: fade-in 0.3s ease;
+  }
+}
+
 .history-header {
   position: sticky;
   top: 0;
