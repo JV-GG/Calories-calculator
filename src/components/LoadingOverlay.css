@@ -1,16 +1,4 @@
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+/* LoadingOverlay — scoped keyframes only */
 
 .loading-overlay {
   position: fixed;
@@ -21,56 +9,42 @@
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  background: #0F172A;
-  animation: fade-in 0.25s ease;
+  background: var(--color-camera-bg);
+  animation: fadeIn 0.25s ease;
 }
 
 @media (min-width: 1024px) {
-  .loading-overlay {
-    border-radius: 28px;
-  }
+  .loading-overlay { border-radius: 28px; }
 }
 
 .loading-logo {
-  width: 72px;
-  height: 72px;
-  border-radius: 20px;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 1.25rem;
   object-fit: cover;
   animation: pulse 2s ease-in-out infinite;
 }
 
 @media (min-width: 768px) {
-  .loading-logo {
-    width: 80px;
-    height: 80px;
-  }
+  .loading-logo { width: 5rem; height: 5rem; }
 }
 
 @media (min-width: 1024px) {
-  .loading-logo {
-    width: 88px;
-    height: 88px;
-  }
+  .loading-logo { width: 5.5rem; height: 5.5rem; }
 }
 
 .loading-animation {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
 }
 
 @media (min-width: 768px) {
-  .loading-animation {
-    width: 52px;
-    height: 52px;
-  }
+  .loading-animation { width: 3.25rem; height: 3.25rem; }
 }
 
 @media (min-width: 1024px) {
-  .loading-animation {
-    width: 56px;
-    height: 56px;
-  }
+  .loading-animation { width: 3.5rem; height: 3.5rem; }
 }
 
 .loading-ring {
@@ -93,33 +67,4 @@
   inset: 12px;
   border-top-color: #10B981;
   animation-duration: 1.2s;
-}
-
-.loading-text {
-  color: white;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  margin: 0;
-}
-
-@media (min-width: 768px) {
-  .loading-text {
-    font-size: 1.1rem;
-  }
-}
-
-.loading-subtext {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-  text-align: center;
-  margin-bottom: 0;
-}
-
-@media (min-width: 768px) {
-  .loading-subtext {
-    font-size: 0.85rem;
-  }
 }

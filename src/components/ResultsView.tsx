@@ -9,7 +9,7 @@ interface ResultsViewProps {
   onScanAgain: () => void
 }
 
-const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; textColor: string; icon: ReactNode }> = {
+const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; textColor: string; icon: ReactNode }> = {
   protein: {
     label: 'Protein',
     bgColor: 'rgba(139, 92, 246, 0.1)',
@@ -27,9 +27,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     textColor: '#D97706',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-        <path d="M2 17l10 5 10-5"/>
-        <path d="M2 12l10 5 10-5"/>
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
       </svg>
     ),
   },
@@ -39,8 +37,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     textColor: '#047857',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 21h10"/>
-        <path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9z"/>
+        <path d="M7 21h10"/><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9z"/>
       </svg>
     ),
   },
@@ -60,8 +57,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     textColor: '#F59E0B',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8 2h8l2 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6l2-4z"/>
-        <path d="M6 6h12"/>
+        <path d="M8 2h8l2 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6l2-4z"/><path d="M6 6h12"/>
       </svg>
     ),
   },
@@ -81,8 +77,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     textColor: '#0284C7',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
-        <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/>
+        <path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/>
       </svg>
     ),
   },
@@ -92,9 +87,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     textColor: '#9333EA',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M8 12h8"/>
-        <path d="M12 8v8"/>
+        <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>
       </svg>
     ),
   },
@@ -104,9 +97,7 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     textColor: '#4B5563',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3v18"/>
-        <path d="M8 21h8"/>
-        <path d="M8 3h8"/>
+        <path d="M12 3v18"/><path d="M8 21h8"/><path d="M8 3h8"/>
       </svg>
     ),
   },
@@ -116,44 +107,27 @@ const categoryConfig: Record<FoodCategory, { label: string; bgColor: string; tex
     textColor: '#2563EB',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-        <path d="M7 2v20"/>
-        <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
       </svg>
     ),
   },
 }
 
-function MacroBar({
-  label,
-  value,
-  max,
-  color,
-  unit = 'g',
-}: {
-  label: string
-  value: number
-  max: number
-  color: string
-  unit?: string
+function MacroBar({ label, value, max, color, unit = 'g' }: {
+  label: string; value: number; max: number; color: string; unit?: string
 }) {
-  const percentage = Math.min((value / max) * 100, 100)
+  const pct = Math.min((value / max) * 100, 100)
   return (
-    <div className="macro-item">
-      <div className="macro-item-header">
-        <span className="macro-item-label">
-          <span className="macro-dot" style={{ backgroundColor: color }} />
+    <div className="flex-1 flex flex-col gap-1">
+      <div className="flex justify-between items-center">
+        <span className="flex items-center gap-2 text-sm font-semibold text-[#0F172A]">
+          <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
           {label}
         </span>
-        <span className="macro-item-value">
-          {value}{unit}
-        </span>
+        <span className="text-sm font-bold text-[#0F172A]">{value}{unit}</span>
       </div>
       <div className="macro-bar">
-        <div
-          className="macro-bar-fill"
-          style={{ width: `${percentage}%`, backgroundColor: color }}
-        />
+        <div className="macro-bar-fill" style={{ width: `${pct}%`, backgroundColor: color }} />
       </div>
     </div>
   )
@@ -161,9 +135,7 @@ function MacroBar({
 
 export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewProps) {
   const { items, totalCalories, totalMacros, confidence, notes, healthInsight } = analysis
-
-  const confidenceLabel =
-    confidence === 'high' ? 'High confidence' : confidence === 'medium' ? 'Medium confidence' : 'Low confidence'
+  const confidenceLabel = confidence === 'high' ? 'High confidence' : confidence === 'medium' ? 'Medium confidence' : 'Low confidence'
 
   const itemsByCategory = items.reduce((acc, item) => {
     const cat = item.category || 'mixed'
@@ -174,18 +146,26 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
 
   return (
     <div className="results-shell">
-      <header className="results-header">
-        <img src={previewUrl} alt="" className="results-thumb" />
-        <div className="results-header-info">
-          <img src={BitesAILogo} alt="" className="results-logo" />
-          <h2>Nutrition Analysis</h2>
-          <span className={`confidence-badge confidence-${confidence}`}>
+      {/* Header */}
+      <header className="sticky top-0 z-10 flex items-center gap-4 px-6 py-5 bg-white border-b border-[#E2E8F0] safe-area-top">
+        <img src={previewUrl} alt="" className="w-13 h-13 rounded-2xl object-cover border border-[#E2E8F0] flex-shrink-0" />
+        <div>
+          <img src={BitesAILogo} alt="" className="w-5 h-5 rounded object-cover mb-1" />
+          <h2 className="text-[#0F172A] text-lg font-bold">Nutrition Analysis</h2>
+          <span
+            className={`inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded-md text-xs font-bold uppercase tracking-wide ${
+              confidence === 'high' ? 'bg-[rgba(5,150,105,0.1)] text-[#059669]' :
+              confidence === 'medium' ? 'bg-[rgba(217,119,6,0.1)] text-[#D97706]' :
+              'bg-[rgba(220,38,38,0.1)] text-[#DC2626]'
+            }`}
+          >
             {confidenceLabel}
           </span>
         </div>
       </header>
 
-      <div className="hero-card">
+      {/* Hero calorie card */}
+      <div className="hero-card animate-fadeUp">
         <p className="hero-card-label">Total Calories</p>
         <div className="hero-card-value">
           <span className="hero-card-number">{totalCalories}</span>
@@ -193,40 +173,38 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
         </div>
       </div>
 
-      <div className="health-card">
-        <div className="health-rating-header">
-          <div className="health-stars" aria-label={`Health rating ${healthInsight.rating} stars`}>
+      {/* Health rating */}
+      <div className="mx-5 mb-4 p-5 bg-white border border-[#E2E8F0] rounded-2xl animate-fadeUp md:mx-6 md:mb-5 lg:mx-[2.5rem] lg:mb-6 lg:p-6">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex gap-0.5" aria-label={`Health rating ${healthInsight.rating} stars`}>
             {[1, 2, 3, 4, 5].map((i) => (
               <svg
                 key={i}
-                className={`health-star ${i <= healthInsight.rating ? '' : 'empty'}`}
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="currentColor"
+                width="18" height="18" viewBox="0 0 24 24"
+                fill={i <= healthInsight.rating ? '#059669' : '#CBD5E1'}
+                className="flex-shrink-0"
               >
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
               </svg>
             ))}
           </div>
-          <span className="health-label">{healthInsight.label}</span>
+          <span className="text-[#0F172A] text-base font-semibold">{healthInsight.label}</span>
         </div>
-        <p className="health-summary">{healthInsight.summary}</p>
+        <p className="text-[#475569] text-sm leading-relaxed">{healthInsight.summary}</p>
       </div>
 
-      <section className="section">
-        <div className="section-header">
-          <div className="section-icon">
+      {/* Macros */}
+      <section className="mx-5 mb-4 md:mx-6 md:mb-5 lg:mx-[2.5rem] lg:mb-6 animate-fadeUp">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 flex items-center justify-center bg-[#2563EB] text-white rounded-lg">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 20V10"/>
-              <path d="M12 20V4"/>
-              <path d="M6 20v-6"/>
+              <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
             </svg>
           </div>
-          <h3 className="section-title">Nutritional Facts</h3>
+          <h3 className="text-[#0F172A] text-base font-bold">Nutritional Facts</h3>
         </div>
-        <div className="macro-card">
-          <div className="macro-list">
+        <div className="bg-white border border-[#E2E8F0] rounded-2xl p-4 lg:flex lg:flex-row lg:gap-8 lg:p-6">
+          <div className="flex flex-col gap-4 lg:flex-1">
             <MacroBar label="Protein" value={totalMacros.protein} max={100} color="#8B5CF6" />
             <MacroBar label="Carbs" value={totalMacros.carbs} max={100} color="#2563EB" />
             <MacroBar label="Fat" value={totalMacros.fat} max={100} color="#059669" />
@@ -237,54 +215,54 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
         </div>
       </section>
 
-      <section className="section category-section">
-        <div className="section-header">
-          <div className="section-icon">
+      {/* Food categories */}
+      <section className="mx-5 mb-4 md:mx-6 md:mb-5 lg:mx-[2.5rem] lg:mb-6 animate-fadeUp">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 flex items-center justify-center bg-[#2563EB] text-white rounded-lg">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="7" height="7"/>
-              <rect x="14" y="3" width="7" height="7"/>
-              <rect x="14" y="14" width="7" height="7"/>
-              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
             </svg>
           </div>
-          <h3 className="section-title">Food Classification</h3>
+          <h3 className="text-[#0F172A] text-base font-bold">Food Classification</h3>
         </div>
 
         {Object.entries(itemsByCategory).map(([cat, catItems]) => {
-          const config = categoryConfig[cat as FoodCategory] || categoryConfig.mixed
+          const config = CATEGORY_CONFIG[cat as FoodCategory] ?? CATEGORY_CONFIG.mixed
           const categoryCalories = catItems.reduce((sum, i) => sum + i.calories, 0)
-
           return (
             <div
               key={cat}
-              className="category-card"
-              style={{ borderLeft: `4px solid ${config.textColor}` }}
+              className="bg-white border border-[#E2E8F0] rounded-2xl overflow-hidden mb-4 border-l-4"
+              style={{ borderLeftColor: config.textColor }}
             >
-              <div className="category-header" style={{ backgroundColor: config.bgColor }}>
+              <div
+                className="flex items-center gap-3 px-4 py-3 border-b border-[#E2E8F0]"
+                style={{ backgroundColor: config.bgColor }}
+              >
                 <div
-                  className="category-icon"
+                  className="w-9 h-9 flex items-center justify-center text-white rounded-lg flex-shrink-0"
                   style={{ backgroundColor: config.textColor }}
                 >
                   {config.icon}
                 </div>
-                <span className="category-name" style={{ color: config.textColor }}>
-                  {config.label}
-                </span>
-                <span className="category-calories" style={{ color: config.textColor }}>
-                  {categoryCalories} kcal
-                </span>
+                <span className="flex-1 text-sm font-semibold" style={{ color: config.textColor }}>{config.label}</span>
+                <span className="text-sm font-bold" style={{ color: config.textColor }}>{categoryCalories} kcal</span>
               </div>
-              <div className="category-items">
+              <div>
                 {catItems.map((item, i) => (
-                  <div key={`${item.name}-${i}`} className="food-item">
-                    <div className="food-item-top">
-                      <span className="food-name">{item.name}</span>
-                      <span className="food-calories">{item.calories} kcal</span>
+                  <div
+                    key={`${item.name}-${i}`}
+                    className="flex flex-col gap-0.5 px-4 py-3 border-b border-[#E2E8F0] last:border-b-0"
+                  >
+                    <div className="flex justify-between items-baseline gap-2">
+                      <span className="text-[#0F172A] text-sm font-semibold">{item.name}</span>
+                      <span className="text-[#2563EB] text-sm font-bold flex-shrink-0">{item.calories} kcal</span>
                     </div>
-                    <div className="food-item-bottom">
-                      <span className="food-portion">{item.portion}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-[#94A3B8] text-xs">{item.portion}</span>
                       {item.macros && (
-                        <span className="food-macros">
+                        <span className="text-[#475569] text-xs">
                           P: {item.macros.protein}g · C: {item.macros.carbs}g · F: {item.macros.fat}g
                         </span>
                       )}
@@ -297,38 +275,44 @@ export function ResultsView({ analysis, previewUrl, onScanAgain }: ResultsViewPr
         })}
       </section>
 
+      {/* Tips */}
       {healthInsight.tips.length > 0 && (
-        <section className="section">
-          <div className="section-header">
-            <div className="section-icon">
+        <section className="mx-5 mb-4 md:mx-6 md:mb-5 lg:mx-[2.5rem] lg:mb-6 animate-fadeUp">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 flex items-center justify-center bg-[#2563EB] text-white rounded-lg">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 16v-4"/>
-                <path d="M12 8h.01"/>
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
               </svg>
             </div>
-            <h3 className="section-title">Health Tips</h3>
+            <h3 className="text-[#0F172A] text-base font-bold">Health Tips</h3>
           </div>
-          <div className="tips-card">
-            <ul className="tips-list">
-              {healthInsight.tips.map((tip, i) => (
-                <li key={i} className="tip-item">
-                  <span className="tip-bullet" />
-                  {tip}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="bg-white border border-[#E2E8F0] rounded-2xl p-4 flex flex-col gap-3 list-none m-0">
+            {healthInsight.tips.map((tip, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm text-[#475569] leading-relaxed">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#059669] flex-shrink-0 mt-2" />
+                {tip}
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 
-      {notes && <p className="results-notes">{notes}</p>}
+      {/* Notes */}
+      {notes && (
+        <p className="mx-5 mb-4 px-4 py-3 bg-[#F8FAFC] rounded-xl text-sm text-[#475569] leading-relaxed border-l-4 border-[#2563EB] md:mx-6 md:mb-5 lg:mx-[2.5rem] lg:mb-6">
+          {notes}
+        </p>
+      )}
 
-      <div className="results-actions">
-        <button type="button" className="btn btn-primary" onClick={onScanAgain}>
+      {/* Scan again */}
+      <div className="px-5 pt-2 pb-6 safe-area-bottom md:px-6 lg:px-[2.5rem]">
+        <button
+          type="button"
+          onClick={onScanAgain}
+          className="w-full flex items-center justify-center gap-2 min-h-14 px-6 bg-[#2563EB] text-white rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.97] active:bg-[#1D4ED8] lg:min-h-[60px]"
+        >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="23 4 23 10 17 10"/>
-            <polyline points="1 20 1 14 7 14"/>
+            <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
             <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
           </svg>
           Scan Again

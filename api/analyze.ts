@@ -178,7 +178,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     // Clean and validate base64
-    let cleanBase = cleanBase64(image)
+    const cleanBase = cleanBase64(image)
     
     // Validate base64 format
     if (!/^[A-Za-z0-9+/=]+$/.test(cleanBase)) {

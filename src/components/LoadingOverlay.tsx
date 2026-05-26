@@ -11,8 +11,12 @@ export function LoadingOverlay() {
         <div className="loading-ring" />
       </div>
       <div>
-        <p className="loading-text">Analyzing food...</p>
-        <p className="loading-subtext">Identifying ingredients and calculating nutrition</p>
+        <p className="text-white text-base font-semibold text-center font-sans md:text-lg">
+          Analyzing food...
+        </p>
+        <p className="text-white/60 text-sm text-center mt-1 font-sans md:text-base">
+          Identifying ingredients and calculating nutrition
+        </p>
       </div>
     </div>
   )

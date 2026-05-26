@@ -3,16 +3,6 @@
   to { transform: translateY(0); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(1rem); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 .app-root {
   position: relative;
   height: 100%;
@@ -49,25 +39,5 @@
   .app-root {
     max-width: 560px;
     min-height: 750px;
-  }
-}
-
-/* Mobile-only container for centering body background */
-@media (min-width: 768px) {
-  :global(body) {
-    background: var(--color-surface) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-height: 100vh !important;
-    padding: 1rem !important;
-  }
-}
-
-@media (min-width: 1024px) {
-  :global(body) {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
-    min-height: 100vh !important;
-    padding: 2rem !important;
   }
 }
