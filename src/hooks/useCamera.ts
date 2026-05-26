@@ -39,7 +39,7 @@ export function useCamera(active: boolean) {
         setReady(true)
       }
     } catch {
-      setError('无法访问摄像头，请使用上传图片')
+      setError('Camera access denied. Please use image upload instead.')
     }
   }, [stopStream])
 
