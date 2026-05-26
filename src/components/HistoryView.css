@@ -1,9 +1,10 @@
-/* HistoryView — scoped styles */
+/* HistoryView — scoped styles (dark theme aligned with camera) */
 
 .history-shell {
   position: fixed;
   inset: 0;
   z-index: 40;
+  /* Scrollable — use auto not hidden */
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -22,7 +23,9 @@
   z-index: 0;
 }
 
-@media (min-width: 1024px) { .history-shell { animation: fadeIn 0.3s ease both; } }
+@media (min-width: 1024px) {
+  .history-shell { animation: fadeIn 0.3s ease both; }
+}
 
 /* Desktop: constrained content */
 .history-content {
@@ -32,10 +35,17 @@
 }
 
 @media (min-width: 1024px) {
-  .history-content { max-width: 900px; margin: 0 auto; }
+  .history-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
 }
 
-@media (min-width: 1440px) { .history-content { max-width: 1100px; } }
+@media (min-width: 1440px) {
+  .history-content {
+    max-width: 1100px;
+  }
+}
 
 /* ─── History Header ────────────────────────────────────────────── */
 .history-header {
@@ -46,14 +56,23 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.25rem;
-  background: rgba(15,23,42,0.85);
+  background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-@media (min-width: 768px) { .history-header { padding: 1.25rem 1.5rem; } }
-@media (min-width: 1024px) { .history-header { padding: 1.25rem 2rem; } }
+@media (min-width: 768px) {
+  .history-header {
+    padding: 1.25rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .history-header {
+    padding: 1.25rem 2rem;
+  }
+}
 
 /* ─── History Items ─────────────────────────────────────────────── */
 .history-item {
@@ -65,24 +84,28 @@
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   text-align: left;
   width: 100%;
   font-family: var(--font-family-sans);
 }
 
 @media (min-width: 1024px) {
-  .history-item { padding: 1rem 1.25rem; gap: 1rem; }
+  .history-item {
+    padding: 1rem 1.25rem;
+    gap: 1rem;
+  }
 }
 
 .history-item:hover {
   background: rgba(255,255,255,0.10);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  border-color: rgba(96,165,250,0.2);
 }
 
-.history-item:active { transform: scale(0.985); }
+.history-item:active {
+  transform: scale(0.985);
+}
 
 /* Desktop grid for history items */
 .history-grid {
@@ -92,9 +115,15 @@
 }
 
 @media (min-width: 768px) {
-  .history-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .history-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
 
-@media (min-width: 1280px) {
-  .history-grid { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 1440px) {
+  .history-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

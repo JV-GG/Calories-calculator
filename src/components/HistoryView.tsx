@@ -77,14 +77,17 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
             </p>
           </div>
         ) : (
+          /* List */
           <div className="p-4 md:p-6 lg:p-8" role="list" aria-label="Scan history">
             <div className="history-grid">
               {history.map((item) => (
-                <div
+                <button
                   key={item.id}
+                  type="button"
+                  onClick={() => onSelect(item)}
                   className="history-item"
                   role="listitem"
-                  onClick={() => onSelect(item)}
+                  aria-label={`${item.analysis.totalCalories} kcal — ${item.analysis.items.map(i => i.name).join(', ')}`}
                 >
                   <img
                     src={item.previewUrl}
@@ -107,7 +110,7 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
                   <button
                     type="button"
                     className="w-11 h-11 flex items-center justify-center bg-transparent border-none rounded-xl text-white/30 cursor-pointer transition-all duration-150 flex-shrink-0 hover:bg-red-500/20 hover:text-red-400 active:bg-red-500/30"
-                    onClick={() => onDelete(item.id)}
+                    onClick={(e) => { e.stopPropagation(); onDelete(item.id) }}
                     aria-label={`Delete record: ${item.analysis.totalCalories} kcal scan from ${formatDate(item.timestamp)}`}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -115,7 +118,7 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
                       <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
                     </svg>
                   </button>
-                </div>
+                </button>
               ))}
             </div>
           </div>

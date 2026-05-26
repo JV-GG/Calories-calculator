@@ -14,24 +14,22 @@
   overflow: hidden;
 }
 
-@media (min-width: 1024px) {
-  .loading-overlay {
-    border-radius: 1.75rem;
-    box-shadow: 0 0 60px rgba(37,99,235,0.2), 0 0 120px rgba(37,99,235,0.1);
-  }
-}
-
 .loading-logo {
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 1.25rem;
   object-fit: cover;
   animation: pulse 2s ease-in-out infinite;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(37,99,235,0.3);
+  box-shadow: var(--elevation-lg);
 }
 
-@media (min-width: 768px) { .loading-logo { width: 5rem; height: 5rem; } }
-@media (min-width: 1024px) { .loading-logo { width: 5.5rem; height: 5.5rem; border-radius: 1.5rem; } }
+@media (min-width: 768px) {
+  .loading-logo { width: 5rem; height: 5rem; }
+}
+
+@media (min-width: 1024px) {
+  .loading-logo { width: 5.5rem; height: 5.5rem; border-radius: 1.5rem; }
+}
 
 /* Ring loader */
 .loading-animation {

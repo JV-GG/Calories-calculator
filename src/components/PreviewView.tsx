@@ -11,7 +11,7 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
   return (
     <div className="preview-shell">
       {/* Header */}
-      <header className="preview-header flex items-center justify-between px-6 py-5 border-b border-white/10 bg-slate-900/50 backdrop-blur-md safe-area-top flex-shrink-0 relative z-10">
+      <header className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-slate-900/50 backdrop-blur-md safe-area-top flex-shrink-0 relative z-10 lg:px-10">
         <button
           type="button"
           onClick={onRetake}
@@ -42,11 +42,11 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
       </div>
 
       {/* Actions */}
-      <div className="preview-actions flex gap-3 px-5 py-5 border-t border-white/10 bg-slate-900/50 backdrop-blur-md safe-area-bottom flex-shrink-0 relative z-10">
+      <div className="flex gap-3 px-5 py-5 border-t border-white/10 bg-slate-900/50 backdrop-blur-md safe-area-bottom flex-shrink-0 relative z-10 lg:px-10 lg:py-6 lg:justify-center">
         <button
           type="button"
           onClick={onRetake}
-          className="btn flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-white/10 border border-white/10 text-white rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/20 active:scale-[0.97]"
+          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-white/10 border border-white/10 text-white rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/20 active:scale-[0.97] lg:flex-none lg:min-w-[200px]"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
@@ -56,7 +56,7 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
         <button
           type="button"
           onClick={onAnalyze}
-          className="btn flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-blue-600 text-white rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.97] active:bg-blue-700"
+          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-blue-600 text-white rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md hover:bg-blue-500 active:scale-[0.97] active:bg-blue-700 lg:flex-none lg:min-w-[200px]"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>

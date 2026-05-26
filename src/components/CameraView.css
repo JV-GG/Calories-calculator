@@ -53,16 +53,21 @@
     z-index: 1;
     border-right: 1px solid rgba(255,255,255,0.08);
     justify-content: space-between;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 
 @media (min-width: 1440px) {
-  .camera-sidebar { width: 380px; padding: 3rem 2.5rem; }
+  .camera-sidebar {
+    width: 380px;
+    padding: 3rem 2.5rem;
+  }
 }
 
-.camera-sidebar-brand { display: flex; flex-direction: column; gap: 2rem; }
+.camera-sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 
 .camera-sidebar-features {
   display: flex;
@@ -79,12 +84,11 @@
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 1rem;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .camera-sidebar-feature:hover {
   background: rgba(255,255,255,0.08);
-  border-color: rgba(96,165,250,0.2);
 }
 
 .feature-icon {
@@ -123,7 +127,9 @@
 }
 
 @media (min-width: 1024px) {
-  .camera-main { max-width: none; }
+  .camera-main {
+    max-width: none;
+  }
 }
 
 /* ─── Camera Header ─────────────────────────────────────────────── */
@@ -136,8 +142,18 @@
   z-index: 20;
 }
 
-@media (min-width: 768px) { .camera-header { padding: 1.5rem 2rem 1rem; } }
-@media (min-width: 1024px) { .camera-header { padding: 1.5rem 2rem 1rem; } }
+@media (min-width: 768px) {
+  .camera-header {
+    padding: 1.5rem 2rem 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .camera-header {
+    /* On desktop, brand is in sidebar, show minimal header */
+    padding: 1.5rem 2rem 1rem;
+  }
+}
 
 /* ─── Viewfinder ────────────────────────────────────────────────── */
 .camera-viewfinder-area {
@@ -148,7 +164,12 @@
   min-height: 0;
 }
 
-@media (min-width: 768px) { .camera-viewfinder-area { padding: 0 2rem; } }
+@media (min-width: 768px) {
+  .camera-viewfinder-area {
+    padding: 0 2rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .camera-viewfinder-area {
     padding: 0 2rem;
@@ -165,7 +186,9 @@
   min-height: 0;
 }
 
-@media (min-width: 768px) { .viewfinder { border-radius: 1.5rem; } }
+@media (min-width: 768px) {
+  .viewfinder { border-radius: 1.5rem; }
+}
 
 @media (min-width: 1024px) {
   .viewfinder {
@@ -177,7 +200,11 @@
   }
 }
 
-@media (min-width: 1440px) { .viewfinder { max-height: 800px; } }
+@media (min-width: 1440px) {
+  .viewfinder {
+    max-height: 800px;
+  }
+}
 
 .viewfinder-video {
   width: 100%;
@@ -209,7 +236,9 @@
   color: white;
 }
 
-@media (min-width: 1024px) { .placeholder-icon { width: 6rem; height: 6rem; border-radius: 1.75rem; } }
+@media (min-width: 1024px) {
+  .placeholder-icon { width: 6rem; height: 6rem; border-radius: 1.75rem; }
+}
 
 .viewfinder-overlay {
   position: absolute;
@@ -224,11 +253,11 @@
   border: 1.5px solid rgba(255,255,255,0.25);
   border-radius: 0.875rem;
   pointer-events: none;
-  animation: glowPulse 2.5s ease-in-out infinite;
 }
 
 @media (min-width: 768px) { .viewfinder-frame { inset: 1.25rem; } }
 
+/* Corner brackets */
 .viewfinder-frame::before,
 .viewfinder-frame::after {
   content: '';
