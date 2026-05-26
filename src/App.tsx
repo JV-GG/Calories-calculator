@@ -157,9 +157,9 @@ function App() {
       )}
 
       {!showHistory && phase === 'analyzing' && (
-        <div className="preview-shell">
-          <div className="preview-image-wrap flex-1">
-            <img src={previewUrl} alt="" className="preview-image" />
+        <div className="analyzing-shell">
+          <div className="analyzing-image-wrap">
+            <img src={previewUrl} alt="" className="analyzing-image" />
           </div>
           <LoadingOverlay />
         </div>

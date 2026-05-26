@@ -11,11 +11,11 @@ interface HistoryViewProps {
 }
 
 function formatDate(timestamp: number): string {
-  const date = new Date(timestamp)
   const diffMs = Date.now() - timestamp
   const diffMins = Math.floor(diffMs / 60000)
   const diffHours = Math.floor(diffMs / 3600000)
   const diffDays = Math.floor(diffMs / 86400000)
+  const date = new Date(timestamp)
 
   if (diffMins < 1) return 'Just now'
   if (diffMins < 60) return `${diffMins}m ago`
@@ -32,63 +32,52 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
   return (
     <div className="history-shell">
       {/* Header */}
-      <header
-        className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 bg-[var(--color-bg)] border-b border-[var(--color-border)] safe-area-top"
-        style={{ fontFamily: 'var(--font-family-sans)' }}
-      >
+      <header className="sticky top-0 z-sticky flex items-center justify-between px-5 py-4 bg-white border-b border-[#E2E8F0] safe-area-top">
         <button
           type="button"
           onClick={onBack}
           aria-label="Go back"
-          className="w-11 h-11 flex items-center justify-center bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl cursor-pointer transition-colors duration-150 active:bg-[var(--color-surface-hover)] active:scale-[0.97] md:w-12 md:h-12"
+          className="w-11 h-11 flex items-center justify-center bg-[#F8FAFC] border-none rounded-xl text-[#0F172A] cursor-pointer transition-all duration-150 hover:bg-[#F1F5F9] active:scale-95"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
           </svg>
         </button>
 
         <div className="flex flex-col items-center gap-1">
-          <img src={BitesAILogo} alt="" className="w-7 h-7 rounded-lg object-cover border border-[var(--color-border)]" />
-          <h1 className="font-heading text-base font-bold" style={{ color: 'var(--color-foreground)', fontFamily: 'var(--font-family-heading)' }}>
-            Scan History
-          </h1>
+          <img src={BitesAILogo} alt="" className="w-7 h-7 rounded-lg object-cover" aria-hidden="true" />
+          <h1 className="text-[#0F172A] text-base font-bold md:text-lg">Scan History</h1>
         </div>
 
         {history.length > 0 ? (
           <button
             type="button"
             onClick={onClear}
-            className="px-4 py-2 bg-transparent border border-[var(--color-border)] rounded-xl text-sm font-semibold cursor-pointer transition-colors duration-150 min-h-10 active:bg-[var(--color-danger-light)] active:border-[var(--color-danger)] active:text-[var(--color-danger)]"
-            style={{ fontFamily: 'var(--font-family-sans)', color: 'var(--color-text-muted)' }}
+            className="px-4 py-2 bg-transparent border border-[#E2E8F0] rounded-xl text-[#475569] text-sm font-semibold cursor-pointer transition-all duration-150 min-h-10 hover:bg-red-50 hover:border-red-500 hover:text-red-600 active:bg-red-100 md:text-base md:px-5"
           >
             Clear
           </button>
         ) : (
-          <div className="w-16" />
+          <div className="w-16" aria-hidden="true" />
         )}
       </header>
 
       {/* Empty state */}
       {history.length === 0 ? (
-        <div
-          className="flex flex-col items-center justify-center min-h-[60vh] px-8 text-center animate-fadeUp"
-          style={{ fontFamily: 'var(--font-family-sans)' }}
-        >
-          <img src={BitesAILogo} alt="" className="w-20 h-20 rounded-2xl object-cover mb-6 opacity-80" />
-          <h2 className="font-heading text-xl font-bold mb-2" style={{ color: 'var(--color-foreground)', fontFamily: 'var(--font-family-heading)' }}>
-            No history yet
-          </h2>
-          <p className="text-sm leading-relaxed max-w-64" style={{ color: 'var(--color-text-muted)' }}>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] px-8 text-center animate-fadeUp">
+          <img
+            src={BitesAILogo}
+            alt="CalorieLens logo"
+            className="w-20 h-20 rounded-2xl object-cover opacity-70 mb-6"
+          />
+          <h2 className="text-[#0F172A] text-xl font-bold mb-2">No history yet</h2>
+          <p className="text-[#475569] text-sm leading-relaxed max-w-64">
             Your scanned food will appear here for easy access
           </p>
         </div>
       ) : (
-        /* List — flat items, 8dp spacing */
-        <div
-          className="p-4 flex flex-col gap-3 md:p-5 lg:p-6"
-          role="list"
-          style={{ fontFamily: 'var(--font-family-sans)' }}
-        >
+        /* List */
+        <div className="p-4 flex flex-col gap-3 md:p-6 lg:p-[2.5rem]" role="list" aria-label="Scan history">
           {history.map((item) => (
             <button
               key={item.id}
@@ -96,35 +85,33 @@ export function HistoryView({ history, onSelect, onDelete, onClear, onBack }: Hi
               onClick={() => onSelect(item)}
               className="history-item"
               role="listitem"
+              aria-label={`${item.analysis.totalCalories} kcal — ${item.analysis.items.map(i => i.name).join(', ')}`}
             >
               <img
                 src={item.previewUrl}
-                alt=""
-                className="w-14 h-14 rounded-xl object-cover border border-[var(--color-border)] flex-shrink-0 md:w-16 md:h-16"
+                alt={`Food from scan on ${formatDate(item.timestamp)}`}
+                className="w-14 h-14 rounded-xl object-cover border border-[#E2E8F0] flex-shrink-0 md:w-16 md:h-16"
                 loading="lazy"
               />
               <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs" style={{ color: 'var(--color-text-subtle)' }}>
-                    {formatDate(item.timestamp)}
-                  </span>
-                  <span className="text-base font-bold flex-shrink-0" style={{ color: 'var(--color-primary)' }}>
+                <div className="flex justify-between items-center mb-0.5">
+                  <span className="text-[#94A3B8] text-xs">{formatDate(item.timestamp)}</span>
+                  <span className="text-blue-600 text-base font-bold flex-shrink-0 tabular-nums">
                     {item.analysis.totalCalories} kcal
                   </span>
                 </div>
-                <p className="text-sm truncate" style={{ color: 'var(--color-text-muted)' }}>
+                <p className="text-[#475569] text-sm leading-snug line-clamp-2">
                   {item.analysis.items.slice(0, 3).map((i) => i.name).join(' · ')}
                   {item.analysis.items.length > 3 && ` +${item.analysis.items.length - 3}`}
                 </p>
               </div>
               <button
                 type="button"
-                className="w-9 h-9 flex items-center justify-center bg-transparent border-none rounded-full cursor-pointer transition-colors duration-150 flex-shrink-0 active:bg-[var(--color-danger-light)] active:text-[var(--color-danger)]"
-                style={{ color: 'var(--color-text-subtle)' }}
+                className="w-11 h-11 flex items-center justify-center bg-transparent border-none rounded-xl text-[#94A3B8] cursor-pointer transition-all duration-150 flex-shrink-0 hover:bg-red-50 hover:text-red-500 active:bg-red-100"
                 onClick={(e) => { e.stopPropagation(); onDelete(item.id) }}
-                aria-label="Delete this record"
+                aria-label={`Delete record: ${item.analysis.totalCalories} kcal scan from ${formatDate(item.timestamp)}`}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
                   <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
                 </svg>
