@@ -9,151 +9,91 @@ interface ResultsViewProps {
   onViewHistory: () => void
 }
 
-const CATEGORY_CONFIG: Record<FoodCategory, { label: string; bgColor: string; textColor: string; barColor: string; icon: ReactNode }> = {
-  protein: {
-    label: 'Protein',
-    bgColor: 'rgba(167, 139, 250, 0.12)',
-    textColor: '#A78BFA',
-    barColor: '#7C3AED',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z"/>
-        <line x1="6" y1="17" x2="18" y2="17"/>
-      </svg>
-    ),
-  },
-  grains: {
-    label: 'Grains',
-    bgColor: 'rgba(251, 191, 36, 0.12)',
-    textColor: '#FBBF24',
-    barColor: '#D97706',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-      </svg>
-    ),
-  },
-  vegetables: {
-    label: 'Vegetables',
-    bgColor: 'rgba(52, 211, 153, 0.12)',
-    textColor: '#34D399',
-    barColor: '#059669',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M7 21h10"/><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9z"/>
-      </svg>
-    ),
-  },
-  fruits: {
-    label: 'Fruits',
-    bgColor: 'rgba(244, 114, 182, 0.12)',
-    textColor: '#F472B6',
-    barColor: '#DB2777',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M17.5 12c0 4.4-3.6 8-8 8A4.5 4.5 0 0 1 5 15.5c0-6 8-12 8-12s4.5 3 4.5 8.5"/>
-      </svg>
-    ),
-  },
-  dairy: {
-    label: 'Dairy',
-    bgColor: 'rgba(251, 191, 36, 0.12)',
-    textColor: '#FBBF24',
-    barColor: '#D97706',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M8 2h8l2 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6l2-4z"/><path d="M6 6h12"/>
-      </svg>
-    ),
-  },
-  fats_oils: {
-    label: 'Fats & Oils',
-    bgColor: 'rgba(251, 146, 60, 0.12)',
-    textColor: '#FB923C',
-    barColor: '#EA580C',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-      </svg>
-    ),
-  },
-  beverages: {
-    label: 'Beverages',
-    bgColor: 'rgba(56, 189, 248, 0.12)',
-    textColor: '#38BDF8',
-    barColor: '#0284C7',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/>
-      </svg>
-    ),
-  },
-  snacks: {
-    label: 'Snacks',
-    bgColor: 'rgba(192, 132, 252, 0.12)',
-    textColor: '#C084FC',
-    barColor: '#9333EA',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>
-      </svg>
-    ),
-  },
-  condiments: {
-    label: 'Condiments',
-    bgColor: 'rgba(156, 163, 175, 0.12)',
-    textColor: '#9CA3AF',
-    barColor: '#6B7280',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 3v18"/><path d="M8 21h8"/><path d="M8 3h8"/>
-      </svg>
-    ),
-  },
-  mixed: {
-    label: 'Mixed Dishes',
-    bgColor: 'rgba(96, 165, 250, 0.12)',
-    textColor: '#60A5FA',
-    barColor: '#2563EB',
-    icon: (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
-      </svg>
-    ),
-  },
-}
+const RING_SIZE = 40
+const RING_STROKE = 3
+const RING_RADIUS = (RING_SIZE - RING_STROKE) / 2
+const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS
 
-function MacroPill({ label, value, max, dotColor, fillClass }: {
-  label: string
-  value: number
-  max: number
-  dotColor: string
-  fillClass: string
+function MacroRing({ value, max, color }: {
+  value: number; max: number; color: string
 }) {
   const pct = Math.min((value / max) * 100, 100)
+  const fill = (pct / 100) * RING_CIRCUMFERENCE
+
   return (
-    <div className={`macro-pill pill-${label.toLowerCase()}`}>
-      <div className="macro-pill-top">
-        <span className="macro-pill-name">
-          <span className="macro-pill-dot" style={{ backgroundColor: dotColor }} />
-          {label}
-        </span>
-        <span className="macro-pill-value">
-          {value}
-          <span className="macro-pill-unit">g</span>
-        </span>
-      </div>
-      <div className="macro-pill-track">
-        <div
-          className={`macro-pill-fill ${fillClass}`}
-          style={{ width: `${pct}%` }}
+    <div className="macro-ring-wrap">
+      <svg
+        className="macro-ring-svg"
+        width={RING_SIZE}
+        height={RING_SIZE}
+        viewBox={`0 0 ${RING_SIZE} ${RING_SIZE}`}
+        aria-hidden="true"
+      >
+        {/* Track ring */}
+        <circle
+          cx={RING_SIZE / 2}
+          cy={RING_SIZE / 2}
+          r={RING_RADIUS}
+          fill="none"
+          stroke="rgba(255,255,255,0.06)"
+          strokeWidth={RING_STROKE}
         />
+        {/* Progress ring */}
+        <circle
+          cx={RING_SIZE / 2}
+          cy={RING_SIZE / 2}
+          r={RING_RADIUS}
+          fill="none"
+          stroke={color}
+          strokeWidth={RING_STROKE}
+          strokeLinecap="round"
+          strokeDasharray={`${fill} ${RING_CIRCUMFERENCE}`}
+          strokeDashoffset={0}
+          style={{ filter: `drop-shadow(0 0 4px ${color}80)` }}
+        />
+      </svg>
+      <div className="macro-ring-value" style={{ color }}>
+        {value}
       </div>
     </div>
   )
 }
 
-function FoodCategoryCard({ cat, catItems, maxCal }: {
+function MacroRingRow({ label, value, max, color }: {
+  label: string
+  value: number
+  max: number
+  color: string
+}) {
+  const pct = Math.min((value / max) * 100, 100)
+  return (
+    <div className="macro-ring-row animate-fadeUp">
+      <MacroRing value={value} max={max} color={color} />
+      <div className="macro-ring-info">
+        <div className="macro-ring-name">{label}</div>
+        <div className="macro-ring-gram">
+          {value}<span>g</span>
+        </div>
+        <div className="macro-ring-pct">{pct.toFixed(0)}% of max</div>
+      </div>
+    </div>
+  )
+}
+
+const CATEGORY_CONFIG: Record<FoodCategory, { label: string; textColor: string; barColor: string; icon: ReactNode }> = {
+  protein:    { label: 'Protein',     textColor: '#A78BFA', barColor: '#7C3AED', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z"/><line x1="6" y1="17" x2="18" y2="17"/></svg> },
+  grains:     { label: 'Grains',      textColor: '#FBBF24', barColor: '#D97706', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> },
+  vegetables:  { label: 'Vegetables',  textColor: '#34D399', barColor: '#059669', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 21h10"/><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9z"/></svg> },
+  fruits:     { label: 'Fruits',      textColor: '#F472B6', barColor: '#DB2777', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17.5 12c0 4.4-3.6 8-8 8A4.5 4.5 0 0 1 5 15.5c0-6 8-12 8-12s4.5 3 4.5 8.5"/></svg> },
+  dairy:      { label: 'Dairy',       textColor: '#FBBF24', barColor: '#D97706', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 2h8l2 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6l2-4z"/><path d="M6 6h12"/></svg> },
+  fats_oils:  { label: 'Fats & Oils', textColor: '#FB923C', barColor: '#EA580C', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> },
+  beverages:  { label: 'Beverages',   textColor: '#38BDF8', barColor: '#0284C7', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/></svg> },
+  snacks:     { label: 'Snacks',      textColor: '#C084FC', barColor: '#9333EA', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg> },
+  condiments: { label: 'Condiments',  textColor: '#9CA3AF', barColor: '#6B7280', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M8 21h8"/><path d="M8 3h8"/></svg> },
+  mixed:      { label: 'Mixed Dishes', textColor: '#60A5FA', barColor: '#2563EB', icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg> },
+}
+
+function FoodCategoryRow({ cat, catItems, maxCal }: {
   cat: FoodCategory
   catItems: Array<{ name: string; calories: number; portion?: string; macros?: { protein: number; carbs: number; fat: number } }>
   maxCal: number
@@ -161,21 +101,15 @@ function FoodCategoryCard({ cat, catItems, maxCal }: {
   const config = CATEGORY_CONFIG[cat] ?? CATEGORY_CONFIG.mixed
   const categoryCalories = catItems.reduce((sum, i) => sum + i.calories, 0)
   return (
-    <div className="food-category" style={{ borderTopColor: config.textColor }}>
-      <div className="food-category-header" style={{ backgroundColor: config.bgColor }}>
-        <div
-          className="food-category-icon"
-          style={{ backgroundColor: config.textColor }}
-          aria-hidden="true"
-        >
+    <div className="food-category" style={{ borderLeftColor: config.textColor, borderLeftWidth: '2px' }}>
+      <div className="food-cat-header">
+        <div className="food-cat-icon" style={{ backgroundColor: config.textColor }} aria-hidden="true">
           {config.icon}
         </div>
-        <span className="food-category-name" style={{ color: config.textColor }}>
+        <span className="food-cat-name" style={{ color: config.textColor }}>
           {config.label}
         </span>
-        <span className="food-category-cal" style={{ color: config.textColor }}>
-          {categoryCalories} kcal
-        </span>
+        <span className="food-cat-cal">{categoryCalories} kcal</span>
       </div>
       <ul className="food-items-list">
         {catItems.map((item, i) => {
@@ -187,7 +121,9 @@ function FoodCategoryCard({ cat, catItems, maxCal }: {
                   <span className="food-item-name">{item.name}</span>
                   <span className="food-item-portion">{item.portion}</span>
                 </div>
-                <span className="food-item-cal">{item.calories}</span>
+                <span className="food-item-cal" style={{ color: config.textColor }}>
+                  {item.calories}
+                </span>
               </div>
               <div className="food-item-bar">
                 <div
@@ -220,18 +156,16 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
   const totalCarbs = totalMacros.carbs
   const totalFat = totalMacros.fat
   const totalFiber = totalMacros.fiber ?? 0
-
-  // For calorie bars, find the max calorie item
   const maxItemCal = Math.max(...items.map(i => i.calories), 1)
 
   return (
     <div className="results-shell">
       <div className="results-layout">
 
-        {/* ── TOP ROW ────────────────────────────────────── */}
+        {/* ── TOP ROW ───────────────────────────────── */}
         <div className="results-top-row">
 
-          {/* Left: Photo + Confidence/History + CTA */}
+          {/* Left: Photo + Meta + CTA */}
           <div className="results-panel-photo">
             <div className="results-photo-card">
               <img src={previewUrl} alt="Scanned food" />
@@ -269,7 +203,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
 
             <div className="results-cta">
               <button type="button" onClick={onScanAgain} className="cta-button" aria-label="Scan another food item">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
                   <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
                 </svg>
@@ -278,7 +212,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
             </div>
           </div>
 
-          {/* Center: Hero Calorie */}
+          {/* Center: Hero */}
           <div className="results-panel-hero">
             <div className="hero-card">
               <div className="hero-card-inner">
@@ -286,15 +220,19 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
                 <div className="hero-card-value">
                   <span className="hero-card-number">{totalCalories}</span>
                 </div>
-                <span className="hero-card-unit">kcal per serving</span>
+                <span className="hero-card-unit">kcal / serving</span>
                 <div className="hero-card-bottom">
                   <div className="hero-health">
-                    <div className="hero-health-stars" aria-label={`Health rating: ${healthInsight.rating} out of 5 stars — ${healthInsight.label}`} role="img">
+                    <div
+                      className="hero-health-stars"
+                      aria-label={`Health rating: ${healthInsight.rating} out of 5 — ${healthInsight.label}`}
+                      role="img"
+                    >
                       {[1, 2, 3, 4, 5].map((i) => (
                         <svg
                           key={i}
                           width="12" height="12" viewBox="0 0 24 24"
-                          fill={i <= healthInsight.rating ? '#34D399' : 'rgba(255,255,255,0.1)'}
+                          fill={i <= healthInsight.rating ? '#34D399' : 'rgba(255,255,255,0.08)'}
                           aria-hidden="true"
                         >
                           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -307,25 +245,17 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
               </div>
             </div>
             <div className="results-summary-row">
-              <div className="results-stat-card">
-                <div className="results-stat-label">Protein</div>
-                <div className="results-stat-value" style={{ color: '#A78BFA' }}>{totalProtein}g</div>
-                <div className="results-stat-unit">macros</div>
-              </div>
-              <div className="results-stat-card">
-                <div className="results-stat-label">Carbs</div>
-                <div className="results-stat-value" style={{ color: '#60A5FA' }}>{totalCarbs}g</div>
-                <div className="results-stat-unit">macros</div>
-              </div>
-              <div className="results-stat-card">
-                <div className="results-stat-label">Fat</div>
-                <div className="results-stat-value" style={{ color: '#34D399' }}>{totalFat}g</div>
-                <div className="results-stat-unit">macros</div>
-              </div>
+              {[{ label: 'Protein', val: totalProtein, color: '#A78BFA' }, { label: 'Carbs', val: totalCarbs, color: '#60A5FA' }, { label: 'Fat', val: totalFat, color: '#34D399' }].map((s) => (
+                <div key={s.label} className="results-stat-card">
+                  <div className="results-stat-label">{s.label}</div>
+                  <div className="results-stat-value" style={{ color: s.color }}>{s.val}g</div>
+                  <div className="results-stat-unit">macros</div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right: Food Classification (xl) */}
+          {/* Right: Food (xl only) */}
           <div className="results-panel-food">
             <div className="food-section">
               <div className="food-section-header">
@@ -338,7 +268,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
                 <h3 className="food-title">Food Classification</h3>
               </div>
               {Object.entries(itemsByCategory).map(([cat, catItems]) => (
-                <FoodCategoryCard
+                <FoodCategoryRow
                   key={cat}
                   cat={cat as FoodCategory}
                   catItems={catItems}
@@ -349,10 +279,10 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
           </div>
         </div>
 
-        {/* ── BOTTOM ROW ─────────────────────────────────── */}
+        {/* ── BOTTOM ROW ────────────────────────────── */}
         <div className="results-bottom-row">
 
-          {/* Left: Macros — Premium pill design */}
+          {/* Macros — ring + data rows */}
           <div className="macros-card animate-fadeUp">
             <div className="macros-header">
               <div className="macros-icon" aria-hidden="true">
@@ -362,23 +292,23 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
               </div>
               <div>
                 <div className="macros-title">Macronutrients</div>
-                <div className="macros-subtitle">Per estimated serving</div>
+                <div className="macros-subtitle">Per serving</div>
               </div>
             </div>
             <div className="macros-grid">
-              <MacroPill label="Protein" value={totalProtein} max={80} dotColor="#A78BFA" fillClass="fill-protein" />
-              <MacroPill label="Carbs" value={totalCarbs} max={100} dotColor="#60A5FA" fillClass="fill-carbs" />
-              <MacroPill label="Fat" value={totalFat} max={60} dotColor="#34D399" fillClass="fill-fat" />
+              <MacroRingRow label="Protein" value={totalProtein} max={80}  color="#A78BFA" />
+              <MacroRingRow label="Carbs"   value={totalCarbs}   max={100} color="#60A5FA" />
+              <MacroRingRow label="Fat"     value={totalFat}     max={60}  color="#34D399" />
               {totalFiber > 0 && (
-                <MacroPill label="Fiber" value={totalFiber} max={30} dotColor="#38BDF8" fillClass="fill-fiber" />
+                <MacroRingRow label="Fiber"   value={totalFiber}  max={30}  color="#38BDF8" />
               )}
             </div>
           </div>
 
-          {/* Right: Tips + Food Classification */}
+          {/* Right: Tips + Food */}
           <div className="results-panel-tips-food">
 
-            {/* Health Tips */}
+            {/* Tips */}
             {healthInsight.tips.length > 0 && (
               <div className="tips-card animate-fadeUp animate-delay-100">
                 <div className="tips-header">
@@ -400,7 +330,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
               </div>
             )}
 
-            {/* Food Classification — bottom panel */}
+            {/* Food — bottom panel */}
             <div className="results-panel-food-mobile">
               <div className="food-section">
                 <div className="food-section-header">
@@ -413,7 +343,7 @@ export function ResultsView({ analysis, previewUrl, onScanAgain, onViewHistory }
                   <h3 className="food-title">Food Classification</h3>
                 </div>
                 {Object.entries(itemsByCategory).map(([cat, catItems]) => (
-                  <FoodCategoryCard
+                  <FoodCategoryRow
                     key={cat}
                     cat={cat as FoodCategory}
                     catItems={catItems}
