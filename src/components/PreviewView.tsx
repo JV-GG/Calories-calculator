@@ -11,7 +11,7 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
   return (
     <div className="preview-shell">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-5 border-b border-[#E2E8F0] bg-white safe-area-top flex-shrink-0">
+      <header className="flex items-center justify-between px-6 py-5 border-b border-[#E2E8F0] bg-white safe-area-top flex-shrink-0 lg:px-10">
         <button
           type="button"
           onClick={onRetake}
@@ -42,11 +42,11 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
       </div>
 
       {/* Actions */}
-      <div className="flex gap-3 px-5 py-5 border-t border-[#E2E8F0] bg-white safe-area-bottom flex-shrink-0">
+      <div className="flex gap-3 px-5 py-5 border-t border-[#E2E8F0] bg-white safe-area-bottom flex-shrink-0 lg:px-10 lg:py-6 lg:justify-center">
         <button
           type="button"
           onClick={onRetake}
-          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-[#F8FAFC] border border-[#E2E8F0] text-[#0F172A] rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.97] active:bg-[#F1F5F9]"
+          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-[#F8FAFC] border border-[#E2E8F0] text-[#0F172A] rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.97] active:bg-[#F1F5F9] lg:flex-none lg:min-w-[200px]"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
@@ -56,7 +56,7 @@ export function PreviewView({ previewUrl, onRetake, onAnalyze }: PreviewViewProp
         <button
           type="button"
           onClick={onAnalyze}
-          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-[#2563EB] text-white rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.97] active:bg-[#1D4ED8]"
+          className="flex-1 flex items-center justify-center gap-2 min-h-[52px] px-5 bg-[#2563EB] text-white rounded-xl font-semibold text-base transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.97] active:bg-[#1D4ED8] lg:flex-none lg:min-w-[200px]"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>

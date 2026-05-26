@@ -13,6 +13,13 @@
   -webkit-overflow-scrolling: touch;
 }
 
+/* Desktop: side-by-side layout */
+@media (min-width: 1024px) {
+  .preview-shell {
+    flex-direction: column;
+  }
+}
+
 .preview-image-container {
   flex: 1;
   min-height: 0;
@@ -29,7 +36,19 @@
 }
 
 @media (min-width: 1024px) {
-  .preview-image-container { margin: 1.25rem; }
+  .preview-image-container {
+    margin: 1.25rem auto;
+    max-width: 900px;
+    width: calc(100% - 4rem);
+    max-height: calc(100vh - 220px);
+    border-radius: var(--radius-xl);
+  }
+}
+
+@media (min-width: 1440px) {
+  .preview-image-container {
+    max-width: 1000px;
+  }
 }
 
 .preview-image {
@@ -37,4 +56,27 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Desktop header improvements */
+@media (min-width: 1024px) {
+  .preview-header {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+/* Desktop actions improvements */
+@media (min-width: 1024px) {
+  .preview-actions {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .preview-actions .flex {
+    max-width: 500px;
+    margin: 0 auto;
+  }
 }
